@@ -1,36 +1,21 @@
 'use client';
 
-import * as MuiIcons from '@mui/icons-material';
-import type { SvgIconProps } from '@mui/material';
-import type { ComponentType } from 'react';
+import { DynamicIcon, IconName } from 'lucide-react/dynamic';
+import { cn } from '@/shared/utils';
 
-export interface IconProps extends Omit<SvgIconProps, 'component'> {
-  name: string;
+export interface IconProps {
+  name:       IconName;
+  size?:      number;
+  className?: string;
 }
 
 export function Icon({
   name,
-  fontSize = 'medium',
-  sx,
+  size = 20,
+  className,
   ...props
 }: IconProps) {
-  const iconName = name.endsWith('Rounded') ? name : `${name}Rounded`;
-  const IconComponent = MuiIcons[iconName as keyof typeof MuiIcons] as ComponentType<SvgIconProps>;
-
-  if (!IconComponent) {
-    console.warn(`Icon "${iconName}" not found in @mui/icons-material`);
-
-    return null;
-  }
-
   return (
-    <IconComponent
-      fontSize={fontSize}
-      sx={{
-        fontWeight: 300,
-        ...sx,
-      }}
-      {...props}
-    />
+    <DynamicIcon name={name} size={size} className={cn('text-grayscale-100', className)} {...props}/>
   );
 }

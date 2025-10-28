@@ -124,3 +124,5 @@ export function Stack(props: StackProps) {
     </Component>
   );
 }
+
+export * from './animated';

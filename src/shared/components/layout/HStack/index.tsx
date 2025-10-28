@@ -10,3 +10,6 @@ export function HStack(props: Omit<StackProps, 'direction'>) {
     />
   );
 }
+
+export * from './animated';
+

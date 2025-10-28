@@ -10,3 +10,6 @@ export function VStack(props: Omit<StackProps, 'direction'>) {
     />
   );
 }
+
+export * from './animated';
+

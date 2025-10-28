@@ -3,6 +3,7 @@ import './globals.css';
 import clsx from 'clsx';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
+import { Sidebar } from '@/shared/components/content';
 
 const pretendard = localFont({
   src: [
@@ -34,9 +35,12 @@ export default function RootLayout({ children}: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={clsx(pretendard.variable, 'bg-grayscale-800')} suppressHydrationWarning={true}>
-        {children}
+    <html lang="en" className="h-full">
+      <body className={clsx(pretendard.variable, 'bg-grayscale-800 flex flex-row gap-0 h-full')} suppressHydrationWarning={true}>
+        <Sidebar />
+        <div className='flex-1'>
+          {children}
+        </div>
       </body>
     </html>
   );
