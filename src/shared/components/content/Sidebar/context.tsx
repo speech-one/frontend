@@ -20,17 +20,28 @@ const STORAGE_KEY = 'sidebar-open';
 export function SidebarProvider({ children }: {
   children: ReactNode;
 }) {
-  const [isOpen, setIsOpen] = useState(() => {
-    if (typeof window === 'undefined') return true;
-
-    const stored = localStorage.getItem(STORAGE_KEY);
-
-    return stored ? JSON.parse(stored) : true;
-  });
+  const [isOpen, setIsOpen] = useState(true);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(isOpen));
-  }, [isOpen]);
+    setMounted(true);
+
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+
+      if (stored !== null) {
+        setIsOpen(JSON.parse(stored));
+      }
+    } catch (error) {
+      console.error('Failed to load sidebar state:', error);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (mounted) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(isOpen));
+    }
+  }, [isOpen, mounted]);
 
   const toggleOpen = () => setIsOpen((prev: boolean) => !prev);
   const setOpen = (open: boolean) => setIsOpen(open);

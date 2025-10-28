@@ -1,3 +1,5 @@
+'use client';
+
 import { AnimatePresence, motion } from 'framer-motion';
 import { IconName } from 'lucide-react/dynamic';
 import Link from 'next/link';

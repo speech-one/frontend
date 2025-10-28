@@ -1,10 +1,14 @@
 'use client';
 
+import {
+  SidebarFooter,
+  SidebarGroup,
+  SidebarHeader,
+  SidebarItem,
+  SidebarProvider,
+  useSidebar,
+} from '@/shared/components/content';
 import { AnimatedVStack, HStack, VStack } from '@/shared/components/layout';
-import { SidebarProvider, useSidebar } from './context';
-import { SidebarGroup } from './group';
-import { SidebarHeader } from './header';
-import { SidebarItem } from './item';
 
 function SidebarContent() {
   const { isOpen } = useSidebar();
@@ -38,12 +42,14 @@ function SidebarContent() {
             </SidebarGroup>
           </VStack>
         </VStack>
+
+        <SidebarFooter />
       </AnimatedVStack>
     </HStack>
   );
 }
 
-export function Sidebar() {
+export function SidebarWidget() {
   return (
     <SidebarProvider>
       <SidebarContent />

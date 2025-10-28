@@ -3,7 +3,9 @@ import './globals.css';
 import clsx from 'clsx';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import { Sidebar } from '@/shared/components/content';
+import { SettingsUnifiedModal } from '@/widgets/settings/unified-modal';
+import { SidebarWidget } from '@/widgets/sidebar';
+import { Providers } from './providers';
 
 const pretendard = localFont({
   src: [
@@ -37,10 +39,13 @@ export default function RootLayout({ children}: Readonly<{
   return (
     <html lang="en" className="h-full">
       <body className={clsx(pretendard.variable, 'bg-grayscale-800 flex flex-row gap-0 h-full')} suppressHydrationWarning={true}>
-        <Sidebar />
-        <div className='flex-1'>
-          {children}
-        </div>
+        <Providers>
+          <SidebarWidget />
+          <div className='flex-1'>
+            {children}
+          </div>
+          <SettingsUnifiedModal />
+        </Providers>
       </body>
     </html>
   );

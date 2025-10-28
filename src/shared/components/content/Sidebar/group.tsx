@@ -15,18 +15,30 @@ export function SidebarGroup(props: SidebarGroupProps) {
   const { children, title } = props;
   const { isOpen } = useSidebar();
   const storageKey = `sidebar-group-${title}`;
-
-  const [isGroupOpen, setIsGroupOpen] = useState(() => {
-    if (typeof window === 'undefined') return false;
-
-    const stored = localStorage.getItem(storageKey);
-
-    return stored ? JSON.parse(stored) : false;
-  });
+  const [isGroupOpen, setIsGroupOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem(storageKey, JSON.stringify(isGroupOpen));
-  }, [isGroupOpen, storageKey]);
+    setMounted(true);
+
+    try {
+      const stored = localStorage.getItem(storageKey);
+
+      if (stored) {
+        setIsGroupOpen(JSON.parse(stored));
+      }
+    } catch (error) {
+      console.error('Failed to load sidebar group state:', error);
+    }
+  }, [storageKey]);
+
+  useEffect(() => {
+    if (mounted) {
+      localStorage.setItem(storageKey, JSON.stringify(isGroupOpen));
+    }
+  }, [
+    isGroupOpen, storageKey, mounted,
+  ]);
 
   return (
     <VStack spacing={6} fullWidth>
