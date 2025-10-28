@@ -1,6 +1,12 @@
+'use client';
+
+import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
-import { VStack } from '@/shared/components/layout';
-import { SettingsBreadcrumb } from './breadcrumb';
+import { IconButton } from '@/shared/components/content';
+import { Icon, Typography } from '@/shared/components/foundation';
+import { HStack, VStack } from '@/shared/components/layout';
+import { getSettingsPageById, getSettingsSubPageById } from './config';
+import { useSettingsRouter } from './hash-router';
 
 interface SettingsTemplateProps {
   children: React.ReactNode;
@@ -9,6 +15,16 @@ interface SettingsTemplateProps {
 
 export function SettingsTemplate(props: SettingsTemplateProps) {
   const { children, pageKey } = props;
+
+  const {
+    currentTab,
+    currentSubPage,
+    closeModal,
+    goBack,
+  } = useSettingsRouter();
+
+  const pageConfig = getSettingsPageById(currentTab);
+  const subPageConfig = currentSubPage ? getSettingsSubPageById(currentTab, currentSubPage) : null;
 
   return (
     <AnimatePresence mode='wait'>
@@ -33,11 +49,52 @@ export function SettingsTemplate(props: SettingsTemplateProps) {
         className='flex-1 w-full overflow-hidden'
       >
         <VStack fullWidth fullHeight spacing={32} justify='start'>
-          <SettingsBreadcrumb />
-          {children}
+          {pageConfig && (
+            <HStack
+              fullWidth
+              justify='between'
+              align='start'
+            >
+              <HStack spacing={8} align='start'>
+                {currentSubPage &&
+                  <IconButton icon='arrow-left' onClick={goBack} className='text-grayscale-300'/>
+                }
+                <VStack spacing={4} align='start'>
+                  <HStack spacing={8} align='center'>
+                    <HStack spacing={8} align='center'>
+                      <Typography.Title className={clsx(currentSubPage ? 'text-grayscale-300' : 'text-grayscale-100')}>
+                        {pageConfig.title}
+                      </Typography.Title>
+
+                      {subPageConfig && (
+                        <>
+                          <Icon name='chevron-right' size={20} className='text-grayscale-500' />
+                          <Typography.Title>
+                            {subPageConfig.title}
+                          </Typography.Title>
+                        </>
+                      )}
+                    </HStack>
+                  </HStack>
+
+                  <Typography.Label className='text-grayscale-400'>
+                    {pageConfig.description}
+                  </Typography.Label>
+                </VStack>
+              </HStack>
+
+              <IconButton icon='x' onClick={() => {
+                closeModal();
+              }} />
+            </HStack>
+          )}
+
+          {/* Content */}
+          <div className='flex-1 w-full overflow-hidden'>
+            {children}
+          </div>
         </VStack>
       </motion.div>
     </AnimatePresence>
-
   );
 }
