@@ -13,6 +13,6 @@ export default defineConfig([
       tsconfigRootDir: import.meta.dirname,
     } },
   },
-  { ignores: ['packages/database/client/**'] },
+  { ignores: ['eslint.config.mjs', 'postcss.config.mjs'] },
   ...eslintCodeGuideline('nestjs'),
 ]);
