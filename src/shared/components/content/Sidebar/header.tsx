@@ -1,6 +1,7 @@
 'use client';
 
 import { AnimatePresence, motion } from 'framer-motion';
+import Link from 'next/link';
 import { Typography } from '@/shared/components/foundation';
 import { HStack, VStack } from '@/shared/components/layout';
 import { Divider } from '../Divider';
@@ -12,27 +13,23 @@ export function SidebarHeader() {
 
   return (
     <VStack spacing={6} fullWidth>
-      <HStack fullWidth justify={isOpen ? 'between' : 'center'} className='px-[8px] py-[10px]'>
-        <AnimatePresence>
-          {
-            isOpen && (
-              <motion.div
-                initial={{
-                  opacity: 0, x: -10,
-                }}
-                animate={{
-                  opacity: 1, x: 0,
-                }}
-                exit={{
-                  opacity: 0, x: -10,
-                }}
-                transition={{ duration: 0.2 }}
-              >
-                <Typography.Body>SpeechOne</Typography.Body>
-              </motion.div>
-            )
-          }
-        </AnimatePresence>
+      <HStack fullWidth justify={isOpen ? 'between' : 'center'} padding={[10, 8]} className='overflow-hidden'>
+        <motion.div
+          animate={{
+            opacity: isOpen ? 1 : 0,
+            width:   isOpen ? 120 : 0,
+          }}
+          transition={{
+            duration: 0.3,
+            ease:     'easeInOut',
+          }}
+          className='overflow-hidden whitespace-nowrap select-none'
+          style={{ pointerEvents: isOpen ? 'auto' : 'none' }}
+        >
+          <Link href='/'>
+            <Typography.Body>SpeechOne</Typography.Body>
+          </Link>
+        </motion.div>
         <IconButton icon={isOpen ? 'panel-left-close' : 'panel-left-open'} onClick={toggleOpen} />
       </HStack>
 
