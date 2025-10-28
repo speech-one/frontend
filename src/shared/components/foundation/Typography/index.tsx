@@ -8,11 +8,11 @@ interface TypographyProps extends React.HTMLAttributes<HTMLDivElement> {
 const Title = (props: TypographyProps) => <TypographyBuilder type={TypographyType.TITLE} {...props} />;
 const Body = (props: TypographyProps) => <TypographyBuilder type={TypographyType.BODY} {...props} />;
 const Label = (props: TypographyProps) => <TypographyBuilder type={TypographyType.LABEL} {...props} />;
-const Caption = (props: TypographyProps) => <TypographyBuilder type={TypographyType.CAPTION} {...props} />;
+const Footnote = (props: TypographyProps) => <TypographyBuilder type={TypographyType.FOOTNOTE} {...props} />;
 
 export const Typography = {
   Title,
   Body,
   Label,
-  Caption,
+  Footnote,
 };

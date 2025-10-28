@@ -76,10 +76,8 @@ export function SettingsHashRouter({ children }: {
 
   const goBack = () => {
     if (currentSubPage) {
-      // 서브페이지에서 메인 페이지로
       window.location.hash = `settings/${currentTab}`;
     } else {
-      // 메인 페이지에서 닫기
       closeModal();
     }
   };

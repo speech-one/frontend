@@ -31,7 +31,7 @@ function UserCoin() {
   return (
     <HStack spacing={4} padding={[4, 6]} className='bg-yellow-translucent rounded-[20px]'>
       <Icon name='dollar-sign' size={16} className='text-yellow-solid'/>
-      <Typography.Caption className='text-yellow-solid'>200 P</Typography.Caption>
+      <Typography.Footnote className='text-yellow-solid'>200 P</Typography.Footnote>
     </HStack>
   );
 }

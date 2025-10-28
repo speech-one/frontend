@@ -23,12 +23,12 @@
   --text-title: 24px;
   --text-body: 16px;
   --text-label: 14px;
-  --text-caption: 12px;
+  --text-footnote: 12px;
 
   --font-weight-title: 600;
   --font-weight-body: 500;
   --font-weight-label: 500;
-  --font-weight-caption: 400;
+  --font-weight-footnote: 400;
 }
 
 @layer base {

@@ -36,10 +36,10 @@ export default function UsagePage() {
             },
           ].map((item, idx) => (
             <HStack key={idx} fullWidth justify='between' className='p-3 bg-grayscale-800 rounded-[8px]'>
-              <Typography.Caption className='text-grayscale-300'>{item.date}</Typography.Caption>
+              <Typography.Footnote className='text-grayscale-300'>{item.date}</Typography.Footnote>
               <HStack spacing={16}>
-                <Typography.Caption className='text-grayscale-400'>{item.tokens} 토큰</Typography.Caption>
-                <Typography.Caption className='text-grayscale-300'>{item.cost}</Typography.Caption>
+                <Typography.Footnote className='text-grayscale-400'>{item.tokens} 토큰</Typography.Footnote>
+                <Typography.Footnote className='text-grayscale-300'>{item.cost}</Typography.Footnote>
               </HStack>
             </HStack>
           ))}

@@ -53,7 +53,7 @@ export function SidebarGroup(props: SidebarGroupProps) {
               opacity: 0, height: 0,
             }} transition={{ duration: 0.2 }} style={{ width: '100%' }}>
               <HStack fullWidth spacing={4} padding={[4, 6]} justify='start' className='hover:text-grayscale-100 active:text-grayscale-100 transition-all duration-150 cursor-pointer select-none' onClick={() => isOpen && setIsGroupOpen((prev: boolean) => !prev)}>
-                <Typography.Caption className='text-grayscale-400'>{title}</Typography.Caption>
+                <Typography.Footnote className='text-grayscale-400'>{title}</Typography.Footnote>
                 <motion.div
                   animate={{ rotate: isGroupOpen ? 90 : 0 }}
                   transition={{ duration: 0.2 }}

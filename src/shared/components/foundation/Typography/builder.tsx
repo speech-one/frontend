@@ -7,17 +7,17 @@ interface TypographyBuilderProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const typographyVariants = {
-  [TypographyType.TITLE]:   'text-title',
-  [TypographyType.BODY]:    'text-body',
-  [TypographyType.LABEL]:   'text-label',
-  [TypographyType.CAPTION]: 'text-caption',
+  [TypographyType.TITLE]:    'text-title',
+  [TypographyType.BODY]:     'text-body',
+  [TypographyType.LABEL]:    'text-label',
+  [TypographyType.FOOTNOTE]: 'text-footnote',
 };
 
 const typographyWeights = {
-  [TypographyType.TITLE]:   'font-title',
-  [TypographyType.BODY]:    'font-body',
-  [TypographyType.LABEL]:   'font-label',
-  [TypographyType.CAPTION]: 'font-caption',
+  [TypographyType.TITLE]:    'font-title',
+  [TypographyType.BODY]:     'font-body',
+  [TypographyType.LABEL]:    'font-label',
+  [TypographyType.FOOTNOTE]: 'font-footnote',
 };
 
 export function TypographyBuilder(props: TypographyBuilderProps) {

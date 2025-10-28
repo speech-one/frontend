@@ -1,6 +1,7 @@
 'use client';
 
-import { Avatar } from '@/shared/components/content';
+import { overlay } from 'overlay-kit';
+import { Avatar, IconButton } from '@/shared/components/content';
 import { Typography } from '@/shared/components/foundation';
 import { HStack, VStack } from '@/shared/components/layout';
 import { useSettingsRouter } from '../hash-router';
@@ -9,51 +10,29 @@ export default function AccountPage() {
   const { changeTab } = useSettingsRouter();
 
   return (
-    <VStack fullWidth fullHeight padding={24} spacing={24} className='overflow-y-auto'>
-      <HStack fullWidth justify='between' align='start'>
-        <VStack spacing={12} align='start'>
-          <Typography.Title>계정</Typography.Title>
-          <Typography.Body className='text-grayscale-400'>
-            계정 정보 및 프로필을 관리합니다.
-          </Typography.Body>
+    <HStack fullWidth padding={[12, 20]} justify='between' className='bg-grayscale-700 rounded-[12px]'>
+      <HStack spacing={16}>
+        <Avatar size={56} src='https://plus.unsplash.com/premium_photo-1694819488591-a43907d1c5cc?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y3V0ZSUyMGRvZ3xlbnwwfHwwfHx8MA%3D%3D&fm=jpg&q=60&w=3000' />
+        <VStack spacing={4}>
+          <Typography.Body>Jeewon Kwon</Typography.Body>
+          <Typography.Footnote className='text-grayscale-400'>jeewon.kwon.0817@gmail.com</Typography.Footnote>
         </VStack>
-
-        <button
-          onClick={() => changeTab('account', 'edit')}
-          className='px-4 py-2 bg-blue-500 text-white rounded-[8px] hover:bg-blue-600 transition-colors'
-        >
-          수정
-        </button>
       </HStack>
 
-      <VStack fullWidth spacing={16} align='start' className='bg-grayscale-900 p-6 rounded-[12px]'>
-        <Typography.Label className='text-grayscale-300'>프로필</Typography.Label>
-        <VStack fullWidth spacing={12}>
-          <Avatar
-            src='https://api.dicebear.com/7.x/avataaars/svg?seed=user'
-            size={80}
-          />
-          <VStack spacing={4} align='start'>
-            <Typography.Body>사용자 이름</Typography.Body>
-            <Typography.Caption className='text-grayscale-400'>
-              user@example.com
-            </Typography.Caption>
-          </VStack>
-        </VStack>
-      </VStack>
-
-      <VStack fullWidth spacing={16} align='start' className='bg-grayscale-900 p-6 rounded-[12px]'>
-        <Typography.Label className='text-grayscale-300'>계정 설정</Typography.Label>
-        <VStack fullWidth spacing={12} align='start'>
-          <div className='text-grayscale-300 text-sm'>
-            이메일 알림
-          </div>
-          <div className='text-grayscale-300 text-sm'>
-            비밀번호 변경
-          </div>
-        </VStack>
-      </VStack>
-    </VStack>
+      <HStack spacing={8}>
+        <IconButton icon='edit' onClick={() => changeTab('account/edit')} background />
+        <IconButton icon='log-out' onClick={() => {
+          overlay.open(({ _isOpen, close }) => {
+            return (
+              <div>
+                <h1>Logout from Account</h1>
+                <button onClick={() => close()}>Close</button>
+              </div>
+            );
+          });
+        }} theme='destructive' background />
+      </HStack>
+    </HStack>
   );
 }
 

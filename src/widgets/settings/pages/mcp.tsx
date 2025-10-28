@@ -40,7 +40,7 @@ export default function MCPPage() {
                     {server.status === 'active' ? '활성' : '비활성'}
                   </span>
                 </div>
-                <Typography.Caption className='text-grayscale-400'>{server.description}</Typography.Caption>
+                <Typography.Footnote className='text-grayscale-400'>{server.description}</Typography.Footnote>
               </VStack>
             </div>
           ))}

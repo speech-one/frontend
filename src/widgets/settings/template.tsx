@@ -89,7 +89,6 @@ export function SettingsTemplate(props: SettingsTemplateProps) {
             </HStack>
           )}
 
-          {/* Content */}
           <div className='flex-1 w-full overflow-hidden'>
             {children}
           </div>
