@@ -2,15 +2,15 @@
 
 @theme {
   --color-grayscale-50: #fafafa;
-  --color-grayscale-100: #f5f5f5;
-  --color-grayscale-200: #e5e5e5;
-  --color-grayscale-300: #a6a6a6;
-  --color-grayscale-400: #676767;
-  --color-grayscale-500: #404040;
-  --color-grayscale-600: #373737;
-  --color-grayscale-700: #282828;
-  --color-grayscale-800: #222222;
-  --color-grayscale-900: #111111;
+  --color-grayscale-100: #f4f4f5;
+  --color-grayscale-200: #e4e4e7;
+  --color-grayscale-300: #a1a1aa;
+  --color-grayscale-400: #71717a;
+  --color-grayscale-500: #52525b;
+  --color-grayscale-600: #3f3f46;
+  --color-grayscale-700: #27272a;
+  --color-grayscale-800: #18181b;
+  --color-grayscale-900: #09090b;
 
   --color-yellow-solid: #F7B750;
   --color-yellow-translucent: rgba(247, 183, 80, 0.2);

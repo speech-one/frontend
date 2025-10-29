@@ -29,7 +29,7 @@ ref) => {
   };
 
   return (
-    <HStack fullWidth={fullWidth} spacing={8} padding={[8, 12]} className='bg-grayscale-700 text-grayscale-100 rounded-[12px] border border-grayscale-600 overflow-hidden transition-all duration-150 hover:border-grayscale-400 hover:bg-grayscale-600 cursor-text active:brightness-90' onClick={handleFocusInput}>
+    <HStack fullWidth={fullWidth} spacing={8} padding={[12, 16]} className='bg-grayscale-700 text-grayscale-100 rounded-[16px] border border-grayscale-600 overflow-hidden transition-all duration-150 hover:border-grayscale-400 hover:bg-grayscale-600 cursor-text active:brightness-90' onClick={handleFocusInput}>
       {startIcon && onStartIconClick &&
         <div onClick={e => e.stopPropagation()}>
           <IconButton icon={startIcon} onClick={onStartIconClick} size='small' className='cursor-pointer' />
@@ -52,7 +52,7 @@ ref) => {
         }}
         disabled={disabled}
         placeholder={props.placeholder}
-        className='w-full bg-transparent outline-none placeholder:text-grayscale-400 placeholder:text-body placeholder:font-body placeholder:tracking-[-0.04em] placeholder:leading-[140%]'
+        className='w-full bg-transparent outline-none placeholder:text-grayscale-300 placeholder:text-body placeholder:font-body placeholder:tracking-[-0.04em] placeholder:leading-[140%]'
         {...props}
       />
 

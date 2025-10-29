@@ -9,8 +9,9 @@
   },
   "dependencies": {
     "@code-guideline/eslint": "^0.1.6",
-    "@tanstack/react-form": "^1.23.8",
-    "@tanstack/zod-form-adapter": "^0.42.1",
+    "@hookform/resolvers": "^5.2.2",
+    "@tanstack/react-query": "^5.90.5",
+    "@tanstack/react-query-devtools": "^5.90.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "eslint": "^9.38.0",
@@ -20,6 +21,8 @@
     "overlay-kit": "^1.8.6",
     "react": "19.2.0",
     "react-dom": "19.2.0",
+    "react-hook-form": "^7.65.0",
+    "sonner": "^2.0.7",
     "tailwind-merge": "^3.3.1",
     "zod": "^4.1.12"
   },

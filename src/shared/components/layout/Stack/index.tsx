@@ -1,7 +1,7 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 import { cn } from '@/shared/utils';
 
-type SpacingValue = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12 | 16 | 20 | 24 | 32 | 40 | 48 | 56 | 64;
+export type SpacingValue = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12 | 16 | 20 | 24 | 32 | 40 | 48 | 56 | 64;
 
 type StackTag = 'div' | 'section' | 'span' | 'p' | 'article' | 'main' | 'button';
 
@@ -126,3 +126,4 @@ export function Stack(props: StackProps) {
 }
 
 export * from './animated';
+
