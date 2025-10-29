@@ -84,7 +84,7 @@ export default function AccountPage() {
       </HStack>
 
       <HStack spacing={8}>
-        <IconButton icon='edit' onClick={() => changeTab('account', 'edit')} background />
+        <IconButton icon='pencil' onClick={() => changeTab('account', 'edit')} background />
         <IconButton icon='log-out' onClick={handleLogout} theme='destructive' background />
       </HStack>
     </HStack>
