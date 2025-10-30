@@ -1,9 +1,11 @@
 import clsx from 'clsx';
+import { Skeleton } from '@/shared/components/content';
 import { TypographyType } from './shared';
 
 interface TypographyBuilderProps extends React.HTMLAttributes<HTMLDivElement> {
-  children: React.ReactNode;
-  type:     TypographyType;
+  children?: React.ReactNode;
+  type:      TypographyType;
+  width?:    number;
 }
 
 const typographyVariants = {
@@ -20,13 +22,31 @@ const typographyWeights = {
   [TypographyType.FOOTNOTE]: 'font-footnote',
 };
 
+const typographyHeights: Record<TypographyType, number> = {
+  [TypographyType.TITLE]:    24,
+  [TypographyType.BODY]:     16,
+  [TypographyType.LABEL]:    14,
+  [TypographyType.FOOTNOTE]: 12,
+};
+
 export function TypographyBuilder(props: TypographyBuilderProps) {
   const {
     children,
     type,
     className,
+    width,
     ...rest
   } = props;
+
+  if (width && (children === undefined || children === null)) {
+    return (
+      <Skeleton
+        width={width}
+        height={typographyHeights[type]}
+        className={clsx(typographyVariants[type], typographyWeights[type], className, 'rounded-[12px]')}
+      />
+    );
+  }
 
   return (
     <div

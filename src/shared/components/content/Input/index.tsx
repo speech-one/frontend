@@ -1,3 +1,5 @@
+'use client';
+
 import { IconName } from 'lucide-react/dynamic';
 import { forwardRef, type InputHTMLAttributes, useRef } from 'react';
 import { Icon } from '@/shared/components/foundation';

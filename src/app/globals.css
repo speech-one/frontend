@@ -55,6 +55,6 @@
   }
 
   .animate-pulse {
-    animation: skeleton-shimmer 2s ease-in-out infinite;
+    animation: skeleton-shimmer 1.5s ease-in-out infinite;
   }
 }

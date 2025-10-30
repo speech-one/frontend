@@ -1,27 +1,33 @@
-import { Avatar } from '@/shared/components/content';
+import { useUser } from '@/entities/user';
+import { Avatar, IconButton } from '@/shared/components/content';
 import { FormField } from '@/shared/components/content/FormField';
 import { Input } from '@/shared/components/content/Input';
 import { Typography } from '@/shared/components/foundation';
 import { HStack, VStack } from '@/shared/components/layout';
 
 export default function AccountEditPage() {
+  const { user } = useUser();
+
   return (
     <VStack fullWidth fullHeight justify='start' padding={24} spacing={48} className='overflow-y-auto'>
       <HStack fullWidth spacing={16}>
-        <Avatar size={72} src='https://plus.unsplash.com/premium_photo-1694819488591-a43907d1c5cc?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y3V0ZSUyMGRvZ3xlbnwwfHwwfHx8MA%3D%3D&fm=jpg&q=60&w=3000' />
+        <Avatar size={72} src={user?.profileImageUrl} />
 
         <FormField label='이름' width={300}>
-          <Input placeholder='이름을 입력해주세요.' />
+          <Input placeholder='이름을 입력해주세요.' value={user?.name} />
         </FormField>
       </HStack>
 
-      <VStack fullWidth spacing={16}>
+      <VStack fullWidth spacing={20}>
         <FormField label='이메일'>
-          <Typography.Label>jeewon.kwon.0817@gmail.com</Typography.Label>
+          <Typography.Body width={200}>{user?.email}</Typography.Body>
         </FormField>
 
         <FormField label='유저 아이디'>
-          <Typography.Label>3abc4def</Typography.Label>
+          <HStack spacing={8}>
+            <Typography.Body width={280}>{user?.id}</Typography.Body>
+            <IconButton icon='copy' onClick={() => navigator.clipboard.writeText(user?.id || '')} size='small' />
+          </HStack>
         </FormField>
       </VStack>
     </VStack>

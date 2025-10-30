@@ -16,6 +16,6 @@ export function Icon({
   ...props
 }: IconProps) {
   return (
-    <DynamicIcon name={name} size={size} className={cn('text-grayscale-100', className)} {...props}/>
+    <DynamicIcon name={name} size={size} className={cn('text-grayscale-100', className)} {...props} strokeWidth={1.5} />
   );
 }

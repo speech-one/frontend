@@ -2,6 +2,7 @@
 
 import { overlay } from 'overlay-kit';
 import { useLogout } from '@/entities/auth';
+import { useUser } from '@/entities/user';
 import { Avatar, ConfirmModal, IconButton } from '@/shared/components/content';
 import { Typography } from '@/shared/components/foundation';
 import { HStack, VStack } from '@/shared/components/layout';
@@ -9,7 +10,7 @@ import { useSettingsRouter } from '../hash-router';
 
 export default function AccountPage() {
   const { changeTab } = useSettingsRouter();
-  const logout = useLogout();
+  const logout = useLogout();  const { user } = useUser();
 
   const handleLogout = () => {
     overlay.open(({ isOpen, close }) => {
@@ -27,10 +28,10 @@ export default function AccountPage() {
   return (
     <HStack fullWidth padding={[12, 20]} justify='between' className='bg-grayscale-700 rounded-[12px]'>
       <HStack spacing={16}>
-        <Avatar size={56} src='https://plus.unsplash.com/premium_photo-1694819488591-a43907d1c5cc?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y3V0ZSUyMGRvZ3xlbnwwfHwwfHx8MA%3D%3D&fm=jpg&q=60&w=3000' />
+        <Avatar size={56} src={user?.profileImageUrl} />
         <VStack spacing={4}>
-          <Typography.Body>Jeewon Kwon</Typography.Body>
-          <Typography.Footnote className='text-grayscale-400'>jeewon.kwon.0817@gmail.com</Typography.Footnote>
+          <Typography.Body>{user?.name}</Typography.Body>
+          <Typography.Footnote className='text-grayscale-400'>{user?.email}</Typography.Footnote>
         </VStack>
       </HStack>
 

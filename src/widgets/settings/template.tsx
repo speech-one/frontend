@@ -32,7 +32,7 @@ export function SettingsTemplate(props: SettingsTemplateProps) {
         key={pageKey}
         initial={{
           opacity: 0,
-          x:       20,
+          x:       10,
         }}
         animate={{
           opacity: 1,
@@ -40,10 +40,10 @@ export function SettingsTemplate(props: SettingsTemplateProps) {
         }}
         exit={{
           opacity: 0,
-          x:       -20,
+          x:       -10,
         }}
         transition={{
-          duration: 0.2,
+          duration: 0.1,
           ease:     'easeInOut',
         }}
         className='flex-1 w-full overflow-hidden'
@@ -78,7 +78,7 @@ export function SettingsTemplate(props: SettingsTemplateProps) {
                   </HStack>
 
                   <Typography.Label className='text-grayscale-400'>
-                    {pageConfig.description}
+                    {currentSubPage ? subPageConfig?.description : pageConfig.description}
                   </Typography.Label>
                 </VStack>
               </HStack>

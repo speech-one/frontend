@@ -61,7 +61,7 @@ export function Avatar(props: AvatarProps) {
         className={cn(avatarVariants({ shape }), className)}
         style={containerStyle}
       >
-        {imageLoading && (
+        {(imageLoading || (src === undefined)) && (
           <Skeleton
             variant={shape === 'square' ? 'rounded' : 'circular'}
             width={size}

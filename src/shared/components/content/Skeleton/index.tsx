@@ -3,7 +3,7 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/shared/utils';
 
-const skeletonVariants = cva('animate-pulse bg-gradient-to-r from-grayscale-800 via-grayscale-700 to-grayscale-800 bg-[length:200%_100%]',
+const skeletonVariants = cva('animate-pulse bg-gradient-to-r from-grayscale-700 via-grayscale-600 to-grayscale-700 bg-[length:200%_100%]',
   {
     variants: { variant: {
       rectangular: 'rounded-[4px]',
