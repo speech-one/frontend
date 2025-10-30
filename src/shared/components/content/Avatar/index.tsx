@@ -6,7 +6,7 @@ import { Icon } from '@/shared/components/foundation';
 import { cn } from '@/shared/utils';
 import { Skeleton } from '../Skeleton';
 
-const avatarVariants = cva('relative inline-flex items-center justify-center overflow-hidden bg-grayscale-800 text-grayscale-300',
+const avatarVariants = cva('relative inline-flex items-center justify-center overflow-hidden bg-grayscale-700 text-grayscale-300',
   {
     variants: { shape: {
       circle: 'rounded-full',

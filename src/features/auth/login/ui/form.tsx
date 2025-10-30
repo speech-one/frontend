@@ -33,29 +33,27 @@ export function LoginForm() {
       onSubmit={onSubmit}
       isLoading={login.isPending}
     >
-      <VStack fullWidth spacing={32} align='end'>
-        <FormTemplateContent>
-          <FormInputField
-            name='email'
-            label='이메일'
-            type='email'
-            placeholder='이메일을 입력해주세요'
-            control={form.control}
-          />
+      <FormTemplateContent>
+        <FormInputField
+          name='email'
+          label='이메일'
+          type='email'
+          placeholder='이메일을 입력해주세요'
+          control={form.control}
+        />
 
-          <FormInputField
-            name='password'
-            label='비밀번호'
-            type='password'
-            placeholder='비밀번호를 입력해주세요'
-            control={form.control}
-          />
-        </FormTemplateContent>
+        <FormInputField
+          name='password'
+          label='비밀번호'
+          type='password'
+          placeholder='비밀번호를 입력해주세요'
+          control={form.control}
+        />
+      </FormTemplateContent>
 
-        <VStack fullWidth align='end' spacing={8}>
-          <Button type='submit' leadingIcon='log-in' fullWidth size='lg'>로그인</Button>
-          <Button variant='text' size='sm' onClick={() => router.push('/auth/register')}>회원가입</Button>
-        </VStack>
+      <VStack fullWidth align='end' spacing={8}>
+        <Button type='submit' leadingIcon='log-in' fullWidth size='lg'>로그인</Button>
+        <Button variant='text' size='sm' onClick={() => router.push('/auth/register')}>회원가입</Button>
       </VStack>
     </FormTemplate>
   );

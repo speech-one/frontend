@@ -1,9 +1,9 @@
 'use client';
 
-import { useUser } from '@/entities/user';
+import { useMe } from '@/entities/user';
 
 export default function Home() {
-  const { user } = useUser();
+  const { user } = useMe();
 
   return (
     <div className='bg-grayscale-900'>

@@ -1,12 +1,11 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { redirect } from 'next/navigation';
 import { userKeys } from '@/entities/user';
+import { queryClient } from '@/shared/lib/react-query/client';
 import { deleteCookie } from '@/shared/utils';
 import { authApi } from '../auth.api';
 
 export function useLogout() {
-  const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: authApi.logout,
     onSuccess:  () => {

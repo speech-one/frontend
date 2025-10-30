@@ -1,6 +1,6 @@
 'use client';
 
-import { useUser } from '@/entities/user';
+import { useMe } from '@/entities/user';
 import { Avatar, IconButton } from '@/shared/components/content';
 import { Icon, Typography } from '@/shared/components/foundation';
 import { HStack } from '@/shared/components/layout';
@@ -8,7 +8,7 @@ import { useSettingsRouter } from '@/widgets/settings/hash-router';
 
 export function SidebarFooter() {
   const { openModal } = useSettingsRouter();
-  const { user } = useUser();
+  const { user } = useMe();
 
   return (
     <HStack fullWidth padding={[6, 10]} justify='between'>

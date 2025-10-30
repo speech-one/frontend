@@ -2,6 +2,7 @@
 
 import { createContext, useContext } from 'react';
 import { FieldValues, UseFormReturn } from 'react-hook-form';
+import { VStack } from '@/shared/components/layout';
 import { Form } from '../Form';
 
 interface FormTemplateContextValue {
@@ -32,7 +33,9 @@ export function FormTemplate<TFieldValues extends FieldValues = FieldValues>(pro
     <FormTemplateContext.Provider value={{ isLoading }}>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='w-full' {...rest}>
-          {children}
+          <VStack fullWidth spacing={32}>
+            {children}
+          </VStack>
         </form>
       </Form>
     </FormTemplateContext.Provider>

@@ -2,7 +2,7 @@
 
 import { overlay } from 'overlay-kit';
 import { useLogout } from '@/entities/auth';
-import { useUser } from '@/entities/user';
+import { useMe } from '@/entities/user';
 import { Avatar, ConfirmModal, IconButton } from '@/shared/components/content';
 import { Typography } from '@/shared/components/foundation';
 import { HStack, VStack } from '@/shared/components/layout';
@@ -10,7 +10,7 @@ import { useSettingsRouter } from '../hash-router';
 
 export default function AccountPage() {
   const { changeTab } = useSettingsRouter();
-  const logout = useLogout();  const { user } = useUser();
+  const logout = useLogout();  const { user } = useMe();
 
   const handleLogout = () => {
     overlay.open(({ isOpen, close }) => {

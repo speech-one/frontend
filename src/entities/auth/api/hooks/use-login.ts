@@ -1,11 +1,10 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { userKeys } from '@/entities/user';
+import { queryClient } from '@/shared/lib/react-query/client';
 import { setCookie } from '@/shared/utils';
 import { authApi } from '../auth.api';
 
 export function useLogin() {
-  const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: authApi.login,
     onSuccess:  data => {

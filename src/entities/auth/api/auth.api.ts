@@ -16,9 +16,27 @@ export const authApi = {
     successMessage: '로그인에 성공했습니다.',
     pendingMessage: '로그인 중입니다...',
   }),
-  register: (data: AuthRegisterRequest) => apiClient<AuthRegisterResponse>('/api/auth/register', {
-    method: 'POST', body: JSON.stringify(data),
-  }),
+  register: (data: AuthRegisterRequest) => {
+    const formData = new FormData;
+
+    formData.append('name', data.name);
+
+    formData.append('email', data.email);
+
+    formData.append('password', data.password);
+
+    if (data.profileImage instanceof File) {
+      formData.append('profileImage', data.profileImage);
+    }
+
+    return apiClient<AuthRegisterResponse>('/api/auth/register', {
+      method: 'POST',
+      body:   formData,
+    }, {
+      successMessage: '회원가입에 성공했습니다.',
+      pendingMessage: '회원가입 중입니다...',
+    });
+  },
   logout: (data: AuthLogoutRequest) => apiClient<boolean>('/api/auth/logout', {
     method: 'POST', body: JSON.stringify(data),
   }, {

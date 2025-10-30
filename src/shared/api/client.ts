@@ -108,10 +108,11 @@ export async function apiClient<T>(endpoint: string,
 
   const makeRequest = async (token?: string): Promise<Response> => {
     const accessToken = token || localStorage.getItem('accessToken') || '';
+    const isFormData = options?.body instanceof FormData;
 
     return fetch(`${API_BASE_URL}${endpoint}`, {
       headers: {
-        'Content-Type': 'application/json',
+        ...!isFormData && { 'Content-Type': 'application/json' },
         ...accessToken && { Authorization: `Bearer ${accessToken}` },
         ...options?.headers,
       },
