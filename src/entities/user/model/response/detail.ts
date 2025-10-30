@@ -1,8 +1,8 @@
 export interface UserDetailResponse {
-  id:         string;
-  name:       string;
-  email:      string;
-  avatarUrl?: string;
-  createdAt:  Date;
-  updatedAt:  Date;
+  id:               string;
+  name:             string;
+  email:            string;
+  profileImageUrl?: string;
+  createdAt:        Date;
+  updatedAt:        Date;
 }

@@ -1,5 +1,6 @@
 'use client';
 
+import { useUser } from '@/entities/user';
 import { Avatar, IconButton } from '@/shared/components/content';
 import { Icon, Typography } from '@/shared/components/foundation';
 import { HStack } from '@/shared/components/layout';
@@ -7,13 +8,14 @@ import { useSettingsRouter } from '@/widgets/settings/hash-router';
 
 export function SidebarFooter() {
   const { openModal } = useSettingsRouter();
+  const { user } = useUser();
 
   return (
     <HStack fullWidth padding={[6, 10]} justify='between'>
       <HStack spacing={12}>
         <HStack spacing={8}>
-          <Avatar src='https://plus.unsplash.com/premium_photo-1694819488591-a43907d1c5cc?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y3V0ZSUyMGRvZ3xlbnwwfHwwfHx8MA%3D%3D&fm=jpg&q=60&w=3000' size={32} />
-          <Typography.Label>Jeewon Kwon</Typography.Label>
+          <Avatar src={user?.profileImageUrl} size={32} />
+          <Typography.Label>{user?.name}</Typography.Label>
         </HStack>
 
         <UserCoin />

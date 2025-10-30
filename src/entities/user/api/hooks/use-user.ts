@@ -4,8 +4,10 @@ import { userApi } from '../user.api';
 
 export function useUser() {
   const { data: user, ...rest } = useQuery({
-    queryKey: userKeys.me(),
-    queryFn:  userApi.getMe,
+    queryKey:  userKeys.me(),
+    queryFn:   userApi.getMe,
+    staleTime: 5 * 60 * 1000,
+    gcTime:    10 * 60 * 1000,
   });
 
   return {
