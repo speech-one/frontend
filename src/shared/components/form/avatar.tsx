@@ -15,7 +15,7 @@ import { HStack, VStack } from '../layout';
 
 interface FormAvatarFieldProps<TFieldValues extends FieldValues> {
   name:      FieldPath<TFieldValues>;
-  label:     string;
+  label?:    string;
   required?: boolean;
   control:   Control<TFieldValues>;
   size?:     number;
@@ -62,7 +62,6 @@ export function FormAvatarField<TFieldValues extends FieldValues>(props: FormAva
       render={({ field }) => {
         const currentValue = field.value as File | string | null | undefined;
 
-        // field.value가 File이 아닌 경우 (예: 기존 URL)
         const displayUrl = currentValue instanceof File
           ? previewUrl
           : typeof currentValue === 'string' && currentValue.length > 0
@@ -72,13 +71,15 @@ export function FormAvatarField<TFieldValues extends FieldValues>(props: FormAva
         return (
           <FormItem className='space-y-1 rounded-md w-full'>
             <VStack fullWidth spacing={8}>
-              <FormLabel>
-                {label}
+              {label && (
+                <FormLabel>
+                  {label}
 
-                {required &&
-                  <Icon name='asterisk' size={12} className='text-red-solid' />
-                }
-              </FormLabel>
+                  {required &&
+                    <Icon name='asterisk' size={12} className='text-red-solid' />
+                  }
+                </FormLabel>
+              )}
 
               <FormControl className={'w-full'}>
                 <HStack spacing={16} align='center'>

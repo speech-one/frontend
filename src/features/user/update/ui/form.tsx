@@ -44,7 +44,6 @@ export function UserUpdateForm() {
         <VStack fullWidth spacing={16} align='start'>
           <FormAvatarField
             name='profileImage'
-            label='프로필 이미지'
             control={form.control}
             size={72}
           />
