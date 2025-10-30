@@ -1,37 +1,37 @@
+import { Button, IconButton, Textarea } from '@/shared/components/content';
 import { Typography } from '@/shared/components/foundation';
-import { VStack } from '@/shared/components/layout';
+import { HStack, VStack } from '@/shared/components/layout';
 
 export default function SystemPromptPage() {
   return (
-    <VStack fullWidth fullHeight padding={24} spacing={24} className='overflow-y-auto'>
+    <VStack fullWidth fullHeight className='overflow-y-auto' spacing={24} justify='start'>
+      <VStack fullWidth spacing={12} align='end'>
+        <Textarea fullWidth placeholder='시스템 프롬프트를 입력해주세요.' height={200}/>
+
+        <Button leadingIcon='plus' size='md'>등록하기</Button>
+      </VStack>
+
       <VStack fullWidth spacing={12} align='start'>
-        <Typography.Title>시스템 프롬프트</Typography.Title>
-        <Typography.Body className='text-grayscale-400'>
-          AI의 동작 방식을 커스터마이징할 수 있습니다.
-        </Typography.Body>
-      </VStack>
+        <Typography.Title>등록한 프롬프트 목록</Typography.Title>
 
-      <VStack fullWidth spacing={16} align='start' className='bg-grayscale-900 p-6 rounded-[12px]'>
-        <Typography.Label className='text-grayscale-300'>기본 프롬프트</Typography.Label>
-        <textarea
-          className='w-full h-40 bg-grayscale-800 text-grayscale-200 p-4 rounded-[8px] resize-none focus:outline-none focus:ring-2 focus:ring-grayscale-600'
-          placeholder='시스템 프롬프트를 입력하세요...'
-          defaultValue='You are a helpful AI assistant.'
-        />
-      </VStack>
+        <VStack fullWidth spacing={8}>
+          <HStack fullWidth justify='between' padding={[12, 16]} className='bg-grayscale-700 rounded-[10px]'>
+            <Typography.Label className='w-[70%] min-w-0 truncate'>언어는 한국어로 진행해줘, 그리고 나는 기획자야. 기획자의 눈 높이에 맞게 설명해주고 B2B 서비스에 맞게끔 조사해주고 PPT를 제작해줘.</Typography.Label>
 
-      <VStack fullWidth spacing={16} align='start' className='bg-grayscale-900 p-6 rounded-[12px]'>
-        <Typography.Label className='text-grayscale-300'>프롬프트 템플릿</Typography.Label>
-        <VStack fullWidth spacing={8} align='start'>
-          <div className='w-full p-3 bg-grayscale-800 rounded-[8px] text-grayscale-300 text-sm cursor-pointer hover:bg-grayscale-700'>
-            코딩 어시스턴트
-          </div>
-          <div className='w-full p-3 bg-grayscale-800 rounded-[8px] text-grayscale-300 text-sm cursor-pointer hover:bg-grayscale-700'>
-            번역가
-          </div>
-          <div className='w-full p-3 bg-grayscale-800 rounded-[8px] text-grayscale-300 text-sm cursor-pointer hover:bg-grayscale-700'>
-            글쓰기 도우미
-          </div>
+            <IconButton icon='trash' theme='destructive' size='small' background />
+          </HStack>
+
+          <HStack fullWidth justify='between' padding={[12, 16]} className='bg-grayscale-700 rounded-[10px]'>
+            <Typography.Label className='w-[70%] min-w-0 truncate'>언어는 한국어로 진행해줘, 그리고 나는 기획자야. 기획자의 눈 높이에 맞게 설명해주고 B2B 서비스에 맞게끔 조사해주고 PPT를 제작해줘.</Typography.Label>
+
+            <IconButton icon='trash' theme='destructive' size='small' background />
+          </HStack>
+
+          <HStack fullWidth justify='between' padding={[12, 16]} className='bg-grayscale-700 rounded-[10px]'>
+            <Typography.Label className='w-[70%] min-w-0 truncate'>언어는 한국어로 진행해줘, 그리고 나는 기획자야. 기획자의 눈 높이에 맞게 설명해주고 B2B 서비스에 맞게끔 조사해주고 PPT를 제작해줘.</Typography.Label>
+
+            <IconButton icon='trash' theme='destructive' size='small' background />
+          </HStack>
         </VStack>
       </VStack>
     </VStack>

@@ -1,6 +1,6 @@
 import { cva } from 'class-variance-authority';
 import { IconName } from 'lucide-react/dynamic';
-import { Icon, Typography } from '@/shared/components/foundation';
+import { Icon } from '@/shared/components/foundation';
 import { HStack, SpacingValue } from '@/shared/components/layout';
 import { cn } from '@/shared/utils';
 import { useFormTemplate } from '../FormTemplate';
@@ -127,12 +127,6 @@ const textVariants = cva('text-grayscale-100', {
   defaultVariants: { theme: 'monochrome' },
 });
 
-const typographyVariants: Record<NonNullable<ButtonProps['size']>, React.ElementType> = {
-  sm: Typography.Label,
-  md: Typography.Body,
-  lg: Typography.Body,
-};
-
 const iconSizeVariants: Record<NonNullable<ButtonProps['size']>, number> = {
   sm: 16,
   md: 20,
@@ -158,7 +152,16 @@ export function Button(props: ButtonProps) {
     ...rest
   } = props;
 
-  const TypographyComponent = typographyVariants[size];  const { isLoading: isFormLoading } = useFormTemplate();
+  const Typography = require('@/shared/components/foundation').Typography;
+
+  const typographyVariants: Record<NonNullable<ButtonProps['size']>, React.ElementType> = {
+    sm: Typography.Label,
+    md: Typography.Body,
+    lg: Typography.Body,
+  };
+
+  const TypographyComponent = typographyVariants[size];
+  const { isLoading: isFormLoading } = useFormTemplate();
   const isLoadingState = (isFormLoading && rest.type === 'submit') || isLoading;
   const isDisabled = isFormLoading || rest.disabled;
 

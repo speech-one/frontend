@@ -9,4 +9,5 @@ export * from './Input';
 export * from './Modal';
 export * from './Sidebar';
 export * from './Skeleton';
+export * from './Textarea';
 
