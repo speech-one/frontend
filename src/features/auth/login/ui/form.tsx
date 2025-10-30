@@ -37,6 +37,7 @@ export function LoginForm() {
               <FormInputField
                 name='email'
                 label='이메일'
+                type='email'
                 placeholder='이메일을 입력해주세요'
                 control={form.control}
               />
@@ -44,6 +45,7 @@ export function LoginForm() {
               <FormInputField
                 name='password'
                 label='비밀번호'
+                type='password'
                 placeholder='비밀번호를 입력해주세요'
                 control={form.control}
               />

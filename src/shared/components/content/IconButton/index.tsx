@@ -102,6 +102,7 @@ export function IconButton(props: IconButtonProps) {
 
   return (
     <button
+      type='button'
       className={cn(iconButtonVariants({
         theme, size, background,
       }), className)}

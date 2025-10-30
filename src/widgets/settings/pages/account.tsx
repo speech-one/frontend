@@ -1,74 +1,25 @@
 'use client';
 
-import { AnimatePresence, motion } from 'framer-motion';
 import { overlay } from 'overlay-kit';
-import { Avatar, Backdrop, IconButton } from '@/shared/components/content';
+import { useLogout } from '@/entities/auth';
+import { Avatar, ConfirmModal, IconButton } from '@/shared/components/content';
 import { Typography } from '@/shared/components/foundation';
 import { HStack, VStack } from '@/shared/components/layout';
 import { useSettingsRouter } from '../hash-router';
 
 export default function AccountPage() {
   const { changeTab } = useSettingsRouter();
+  const logout = useLogout();
 
   const handleLogout = () => {
-    overlay.open(({
-      isOpen,
-      close,
-      unmount,
-    }) => {
+    overlay.open(({ isOpen, close }) => {
       return (
-        <AnimatePresence mode='wait' onExitComplete={unmount}>
-          {isOpen && (
-            <Backdrop onClick={close}>
-              <motion.div
-                initial={{
-                  opacity: 0,
-                  scale:   0.95,
-                }}
-                animate={{
-                  opacity: 1,
-                  scale:   1,
-                }}
-                exit={{
-                  opacity: 0,
-                  scale:   0.95,
-                }}
-                transition={{
-                  duration: 0.2,
-                  ease:     'easeOut',
-                }}
-                onClick={e => e.stopPropagation()}
-                className='bg-grayscale-800 rounded-[16px] p-6 max-w-md'
-              >
-                <VStack spacing={16} align='start'>
-                  <VStack spacing={8} align='start'>
-                    <Typography.Title>로그아웃</Typography.Title>
-                    <Typography.Body className='text-grayscale-400'>
-                      정말 로그아웃하시겠습니까?
-                    </Typography.Body>
-                  </VStack>
-
-                  <HStack fullWidth spacing={8} justify='end'>
-                    <button
-                      onClick={close}
-                      className='px-4 py-2 bg-grayscale-700 text-grayscale-200 rounded-[8px] hover:bg-grayscale-600 transition-colors'
-                    >
-                      취소
-                    </button>
-                    <button
-                      onClick={() => {
-                        close();
-                      }}
-                      className='px-4 py-2 bg-red-500 text-white rounded-[8px] hover:bg-red-600 transition-colors'
-                    >
-                      로그아웃
-                    </button>
-                  </HStack>
-                </VStack>
-              </motion.div>
-            </Backdrop>
-          )}
-        </AnimatePresence>
+        <ConfirmModal title='로그아웃'
+          description='로그아웃 하시겠습니까?'
+          isPending={logout.isPending}
+          isOpen={isOpen} onClose={close} onConfirm={async () => {
+            await logout.mutateAsync({ refreshToken: localStorage.getItem('refreshToken') || '' });
+          }} />
       );
     });
   };

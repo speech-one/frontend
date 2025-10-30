@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Control, FieldPath, FieldValues } from 'react-hook-form';
 import { Input } from '../content';
 import {
@@ -26,8 +26,16 @@ export function FormInputField<TFieldValues extends FieldValues>(props: FormInpu
     placeholder,
     required = false,
     control,
+    type,
     ...rest
   } = props;
+
+  const isPasswordInput = type === 'password';
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  const handlePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
 
   return (
     <FormField
@@ -48,8 +56,11 @@ export function FormInputField<TFieldValues extends FieldValues>(props: FormInpu
               <Input
                 fullWidth
                 placeholder={placeholder}
+                endIcon={isPasswordInput ? (isPasswordVisible ? 'eye-off' : 'eye') : undefined}
+                onEndIconClick={isPasswordInput ? handlePasswordVisibility : undefined}
                 {...rest}
                 {...field}
+                type={isPasswordInput ? (isPasswordVisible ? 'text' : 'password') : type}
               />
             </FormControl>
           </VStack>

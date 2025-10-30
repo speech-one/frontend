@@ -70,3 +70,5 @@ export function Modal(props: ModalProps) {
   );
 }
 
+export * from './confirm';
+
