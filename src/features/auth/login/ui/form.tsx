@@ -51,7 +51,10 @@ export function LoginForm() {
               />
             </VStack>
 
-            <Button type='submit' leadingIcon='log-in' fullWidth size='lg' isLoading={login.isPending}>로그인</Button>
+            <VStack fullWidth align='end' spacing={8}>
+              <Button type='submit' leadingIcon='log-in' fullWidth size='lg' isLoading={login.isPending}>로그인</Button>
+              <Button variant='text' size='sm' onClick={() => router.push('/auth/register')}>회원가입</Button>
+            </VStack>
           </VStack>
         </form>
       </Form>

@@ -6,8 +6,6 @@ export function proxy(request: NextRequest) {
   const isPublicPath = publicPaths.some(path => pathname.startsWith(path));
 
   if (isPublicPath) {
-    console.warn('[Middleware] Public path, allowing access');
-
     return NextResponse.next();
   }
 

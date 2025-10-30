@@ -15,24 +15,59 @@ interface ButtonProps extends React.ComponentProps<'button'> {
   theme?:        'monochrome' | 'destructive' | 'warning';
 }
 
-const buttonVariants = cva('rounded-[20px] bg-grayscale-100 hover:brightness-90 active:scale-95 transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer', {
+const buttonVariants = cva('rounded-[20px] transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer', {
   variants: {
     variant: {
-      contained: 'bg-grayscale-100 hover:brightness-90 active:scale-95 transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer',
-      outlined:  'bg-transparent border border-grayscale-100 hover:brightness-90 active:scale-95 transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer text-grayscale-100',
-      text:      'bg-transparent hover:brightness-90 active:scale-95 transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer',
+      contained: 'bg-grayscale-100 hover:brightness-90 active:scale-95',
+      outlined:  'bg-transparent border border-grayscale-100 hover:brightness-90 active:scale-95',
+      text:      'bg-transparent hover:underline active:opacity-80',
     },
     theme: {
-      monochrome:  'bg-grayscale-100 hover:brightness-90 active:scale-95 transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer',
-      destructive: 'bg-red-translucent hover:brightness-90 active:scale-95 transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer',
-      warning:     'bg-yellow-translucent hover:brightness-90 active:scale-95 transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer',
+      monochrome:  '',
+      destructive: '',
+      warning:     '',
     },
   },
   compoundVariants: [
     {
+      variant:   'contained',
+      theme:     'monochrome',
+      className: 'bg-grayscale-100',
+    },
+    {
+      variant:   'contained',
+      theme:     'destructive',
+      className: 'bg-red-translucent',
+    },
+    {
+      variant:   'contained',
+      theme:     'warning',
+      className: 'bg-yellow-translucent',
+    },
+    {
       variant:   'outlined',
       theme:     'destructive',
-      className: 'bg-red-translucent text-red-solid border-red-solid',
+      className: 'bg-transparent border-red-solid text-red-solid',
+    },
+    {
+      variant:   'outlined',
+      theme:     'warning',
+      className: 'bg-transparent border-yellow-solid text-yellow-solid',
+    },
+    {
+      variant:   'text',
+      theme:     'monochrome',
+      className: 'bg-transparent hover:text-grayscale-200',
+    },
+    {
+      variant:   'text',
+      theme:     'destructive',
+      className: 'bg-transparent hover:text-red-solid/80',
+    },
+    {
+      variant:   'text',
+      theme:     'warning',
+      className: 'bg-transparent hover:text-yellow-solid/80',
     },
   ],
 });
@@ -51,11 +86,43 @@ const textVariants = cva('text-grayscale-100', {
       text:      'text-grayscale-100',
     },
     theme: {
-      monochrome:  'text-grayscale-800',
+      monochrome:  '',
       destructive: 'text-red-solid',
       warning:     'text-yellow-solid',
     },
   },
+  compoundVariants: [
+    {
+      variant:   'text',
+      theme:     'monochrome',
+      className: 'text-grayscale-100',
+    },
+    {
+      variant:   'contained',
+      theme:     'monochrome',
+      className: 'text-grayscale-800',
+    },
+    {
+      variant:   'contained',
+      theme:     'destructive',
+      className: 'text-red-solid',
+    },
+    {
+      variant:   'contained',
+      theme:     'warning',
+      className: 'text-yellow-solid',
+    },
+    {
+      variant:   'text',
+      theme:     'destructive',
+      className: 'text-red-solid',
+    },
+    {
+      variant:   'text',
+      theme:     'warning',
+      className: 'text-yellow-solid',
+    },
+  ],
   defaultVariants: { theme: 'monochrome' },
 });
 
