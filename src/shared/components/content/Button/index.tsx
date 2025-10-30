@@ -3,6 +3,7 @@ import { IconName } from 'lucide-react/dynamic';
 import { Icon, Typography } from '@/shared/components/foundation';
 import { HStack, SpacingValue } from '@/shared/components/layout';
 import { cn } from '@/shared/utils';
+import { useFormTemplate } from '../FormTemplate';
 
 interface ButtonProps extends React.ComponentProps<'button'> {
   children:      string;
@@ -157,16 +158,18 @@ export function Button(props: ButtonProps) {
     ...rest
   } = props;
 
-  const TypographyComponent = typographyVariants[size];
+  const TypographyComponent = typographyVariants[size];  const { isLoading: isFormLoading } = useFormTemplate();
+  const isLoadingState = (isFormLoading && rest.type === 'submit') || isLoading;
+  const isDisabled = isFormLoading || rest.disabled;
 
   return (
     <HStack as='button' spacing={spacingVariants[size]} padding={paddingVariants[size]} className={buttonVariants({
       variant, theme,
-    })} type='button' fullWidth={fullWidth} disabled={isLoading} {...rest} justify='center'>
-      {isLoading && <Icon name='loader-circle' size={iconSizeVariants[size]} className={cn('animate-spin', textVariants({
+    })} type='button' fullWidth={fullWidth} disabled={isDisabled} {...rest} justify='center'>
+      {isLoadingState && <Icon name='loader-circle' size={iconSizeVariants[size]} className={cn('animate-spin', textVariants({
         variant, theme,
       }))} />}
-      {(leadingIcon && !isLoading) && <Icon name={leadingIcon} size={iconSizeVariants[size]} className={textVariants({
+      {(leadingIcon && !isLoadingState) && <Icon name={leadingIcon} size={iconSizeVariants[size]} className={textVariants({
         variant, theme,
       })} />}
       <TypographyComponent className={textVariants({

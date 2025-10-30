@@ -3,6 +3,7 @@ export * from './Backdrop';
 export * from './Button';
 export * from './Divider';
 export * from './Form';
+export * from './FormTemplate';
 export * from './IconButton';
 export * from './Input';
 export * from './Modal';
