@@ -12,6 +12,9 @@ import { AuthRefreshResponse } from '../model/response/refresh';
 export const authApi = {
   login: (data: AuthLoginRequest) => apiClient<AuthLoginResponse>('/api/auth/login', {
     method: 'POST', body: JSON.stringify(data),
+  }, {
+    successMessage: '로그인에 성공했습니다.',
+    pendingMessage: '로그인 중입니다...',
   }),
   register: (data: AuthRegisterRequest) => apiClient<AuthRegisterResponse>('/api/auth/register', {
     method: 'POST', body: JSON.stringify(data),

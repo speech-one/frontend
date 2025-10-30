@@ -17,7 +17,9 @@ export function Card(props: CardProps) {
   } = props;
 
   return (
-    <VStack fullWidth={width === undefined ? true : false} spacing={24} padding={[32, 48]} className='bg-grayscale-800 rounded-[12px] border border-grayscale-600' {...rest} width={width} height={height} justify='center' align='center'>
+    <VStack fullWidth={width === undefined ? true : false} spacing={24} padding={[
+      32, 48, 56, 48,
+    ]} className='bg-grayscale-800 rounded-[20px] border border-grayscale-600' {...rest} width={width} height={height} justify='center' align='center'>
       <Typography.Title>{title}</Typography.Title>
       {children}
     </VStack>

@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { AuthLoginRequest, authLoginSchema } from '@/entities/auth';
 import { useLogin } from '@/entities/auth/api/hooks';
-import { Button, Divider, Form } from '@/shared/components/content';
+import { Button, Form } from '@/shared/components/content';
 import { FormInputField } from '@/shared/components/form';
 import { VStack } from '@/shared/components/layout';
 
@@ -32,7 +32,7 @@ export function LoginForm() {
     <VStack fullWidth spacing={24}>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='w-full'>
-          <VStack fullWidth spacing={32}>
+          <VStack fullWidth spacing={32} align='end'>
             <VStack fullWidth spacing={24}>
               <FormInputField
                 name='email'
@@ -53,10 +53,6 @@ export function LoginForm() {
           </VStack>
         </form>
       </Form>
-
-      <Divider className='bg-grayscale-600' />
-
-      <Button variant='outlined' fullWidth size='lg'>회원가입</Button>
     </VStack>
   );
 }
