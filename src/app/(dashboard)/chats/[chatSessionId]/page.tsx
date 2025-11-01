@@ -87,6 +87,56 @@ const chatData: ChatData[] = [
           },
         ],
       },
+      {
+        title:   '선린인터넷고등학교에 대한 정보 수집 및 분석',
+        status:  'PENDING',
+        sources: [
+          {
+            sourceType: 'ACTION',
+            action:     '검색',
+            icon:       'search',
+            parameters: [
+              '선린인터넷고등학교 문제점 비판', '선린인터넷고등학교 교육과정 이슈', '선린인터넷고등학교 학생 후기 불만',
+            ],
+          },
+          {
+            sourceType: 'TEXT', content: '선린인터넷고등학교는 IT 특성화로 평가받지만, 교육과 행정 문제, 경쟁 압박, 졸업 후 진로 등 일부 비판도 존재함을 발견했습니다. 다음 단계는 상세 분석입니다.',
+          },
+          {
+            sourceType: 'ACTION',
+            icon:       'compass',
+            action:     '검색 중',
+            parameters: ['https://namu.wiki/w/%EC%84%A0%EB%A6%B0%EC%9D%B8%ED%84%B0%EB%84%B7%EA%B3%A0%EB%93%B1%ED%95%99%EA%B5%90'],
+          },
+          {
+            sourceType: 'ACTION',
+            icon:       'compass',
+            action:     '검색 중',
+            parameters: ['https://blog.sechack.kr/91'],
+          },
+          {
+            sourceType: 'ACTION',
+            icon:       'file-text',
+            action:     '파일을 읽는 중',
+            parameters: ['page_texts/namu.wiki_w__EC_84_A0_EB_A6_B0_EC_9D_B8_ED_84_B0_EB_84_B7_EA_B3_A0_EB_93_B1_ED_95_99_EA_B5_90.txt'],
+          },
+          {
+            sourceType: 'TEXT',
+            content:    '학교는 자유롭고 IT 중심이지만, 교육 한계, 실용성 부족, 진로 불안, 학생 불만 등 문제점도 파악됨. 다음은 상세 분석입니다.',
+          },
+          {
+            sourceType: 'ACTION',
+            icon:       'search',
+            action:     '검색 중',
+            parameters: ['https://blog.naver.com/mimitak/223116341333?viewType=pc'],
+          },
+          {
+            sourceType: 'ACTION',
+            icon:       'arrow-down',
+            action:     '아래로 스크롤 중',
+          },
+        ],
+      },
     ] },
   },
 ];
