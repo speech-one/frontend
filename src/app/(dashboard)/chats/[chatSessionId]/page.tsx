@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { IconName } from 'lucide-react/dynamic';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { AnimatedPresence } from '@/shared/components/animate';
 import { Icon, Typography } from '@/shared/components/foundation';
 import { HStack, VStack } from '@/shared/components/layout';
@@ -154,114 +154,88 @@ interface AgentSubTaskProps {
 function AgentSubTask(props: AgentSubTaskProps) {
   const { title, children } = props;
   const [isOpen, setIsOpen] = useState(true);
-  const [height, setHeight] = useState<number | undefined>(undefined);
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const updateHeight = () => {
-      if (contentRef.current) {
-        const newHeight = contentRef.current.offsetHeight;
-
-        setHeight(newHeight);
-      }
-    };
-
-    updateHeight();
-
-    const resizeObserver = new ResizeObserver(updateHeight);
-
-    if (contentRef.current) {
-      resizeObserver.observe(contentRef.current);
-    }
-
-    return () => {
-      resizeObserver.disconnect();
-    };
-  }, [isOpen, children]);
 
   return (
     <HStack fullWidth align='stretch' spacing={8} className='min-w-0'>
-      <VStack className='self-stretch shrink-0' style={{ height: height ? `${height}px` : 'auto' }} align='center'>
+      <VStack className='shrink-0 self-stretch h-auto!' align='center'>
         <Icon name='check-circle-2' size={20} className='shrink-0' />
         <div className='w-[2px] flex-1 border-0' style={{ backgroundImage: 'repeating-linear-gradient(to bottom, transparent, transparent 4px, rgb(107 114 128) 4px, rgb(107 114 128) 6px)' }}/>
       </VStack>
 
-      <div ref={contentRef} className='w-full min-w-0'>
-        <VStack fullWidth className='min-w-0'>
-          <HStack spacing={8} onClick={() => setIsOpen(!isOpen)} className='min-w-0'>
-            <Typography.Label className='min-w-0 truncate'>{title}</Typography.Label>
-            <Icon name='chevron-down' size={24} className={`shrink-0 ${isOpen ? '' : 'rotate-180'}`}/>
-          </HStack>
+      <VStack fullWidth className='min-w-0'>
+        <HStack spacing={8} onClick={() => setIsOpen(!isOpen)} className='min-w-0'>
+          <Typography.Label className='min-w-0 truncate'>{title}</Typography.Label>
+          <Icon name='chevron-down' size={24} className={`shrink-0 ${isOpen ? '' : 'rotate-180'}`}/>
+        </HStack>
 
-          <AnimatedPresence isOpen={isOpen} fullWidth className='min-w-0'>
-            {isOpen && (
-              <motion.div
-                initial="hidden"
-                animate="visible"
-                exit="hidden"
-                className='min-w-0 w-full'
-                variants={{
-                  visible: { transition: {
-                    staggerChildren: 0.05,
-                    delayChildren:   0.05,
-                  } },
-                  hidden: { transition: {
-                    staggerChildren:  0.03,
-                    staggerDirection: -1,
-                  } },
-                }}
-              >
-                <VStack spacing={12} padding={[8, 0]} className='min-w-0 w-full'>
-                  {Array.isArray(children)
-                    ? children.map((child, index) => (
-                      <motion.div
-                        key={index}
-                        className='min-w-0 w-full'
-                        variants={{
-                          visible: {
-                            opacity:    1,
-                            y:          0,
-                            transition: {
-                              duration: 0.2,
-                              ease:     'easeOut',
-                            },
+        <AnimatedPresence isOpen={isOpen} fullWidth className='min-w-0'>
+          {isOpen && (
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              className='min-w-0 w-full'
+              variants={{
+                visible: { transition: {
+                  staggerChildren: 0.05,
+                  delayChildren:   0.05,
+                } },
+                hidden: { transition: {
+                  staggerChildren:  0.03,
+                  staggerDirection: -1,
+                } },
+              }}
+            >
+              <VStack spacing={12} padding={[8, 0]} className='min-w-0 w-full'>
+                {Array.isArray(children)
+                  ? children.map((child, index) => (
+                    <motion.div
+                      key={index}
+                      className='min-w-0 w-full'
+                      variants={{
+                        visible: {
+                          opacity:    1,
+                          y:          0,
+                          transition: {
+                            duration: 0.2,
+                            ease:     'easeOut',
                           },
-                          hidden: {
-                            opacity:    0,
-                            y:          -10,
-                            transition: {
-                              duration: 0.15,
-                              ease:     'easeIn',
-                            },
+                        },
+                        hidden: {
+                          opacity:    0,
+                          y:          -10,
+                          transition: {
+                            duration: 0.15,
+                            ease:     'easeIn',
                           },
-                        }}
-                      >
-                        {child}
-                      </motion.div>
-                    ))
-                    : (
-                      <motion.div
-                        className='min-w-0 w-full'
-                        variants={{
-                          visible: {
-                            opacity: 1,
-                            y:       0,
-                          },
-                          hidden: {
-                            opacity: 0,
-                            y:       -10,
-                          },
-                        }}
-                      >
-                        {children}
-                      </motion.div>
-                    )}
-                </VStack>
-              </motion.div>
-            )}
-          </AnimatedPresence>
-        </VStack>
-      </div>
+                        },
+                      }}
+                    >
+                      {child}
+                    </motion.div>
+                  ))
+                  : (
+                    <motion.div
+                      className='min-w-0 w-full'
+                      variants={{
+                        visible: {
+                          opacity: 1,
+                          y:       0,
+                        },
+                        hidden: {
+                          opacity: 0,
+                          y:       -10,
+                        },
+                      }}
+                    >
+                      {children}
+                    </motion.div>
+                  )}
+              </VStack>
+            </motion.div>
+          )}
+        </AnimatedPresence>
+      </VStack>
     </HStack>
   );
 }
