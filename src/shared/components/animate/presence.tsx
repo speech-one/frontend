@@ -5,6 +5,7 @@ import {
   Transition,
   VariantLabels,
 } from 'framer-motion';
+import { cn } from '@/shared/utils';
 
 export type AnimatedPresenceType = boolean | TargetAndTransition | VariantLabels | undefined;
 
@@ -15,6 +16,9 @@ interface AnimatedPresenceProps {
   animate?:    AnimatedPresenceType;
   exit?:       TargetAndTransition | VariantLabels | undefined;
   transition?: Transition;
+  className?:  string;
+  fullWidth?:  boolean;
+  fullHeight?: boolean;
 }
 
 export function AnimatedPresence(props: AnimatedPresenceProps) {
@@ -28,6 +32,9 @@ export function AnimatedPresence(props: AnimatedPresenceProps) {
       duration: 0.2,
       ease:     'easeOut',
     },
+    className,
+    fullWidth = false,
+    fullHeight = false,
   } = props;
 
   return (
@@ -38,6 +45,11 @@ export function AnimatedPresence(props: AnimatedPresenceProps) {
           animate={animate}
           exit={exit}
           transition={transition}
+          className={cn(
+            fullWidth ? 'w-full' : 'w-fit',
+            fullHeight ? 'h-full' : 'h-fit',
+            className,
+          )}
         >
           {children}
         </motion.div>
