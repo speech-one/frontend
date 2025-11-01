@@ -1,7 +1,8 @@
 'use client';
 
 import { useMe } from '@/entities/user';
-import { Avatar, IconButton } from '@/shared/components/content';
+import { AnimatedPresence } from '@/shared/components/animate';
+import { Avatar, IconButton, useSidebar } from '@/shared/components/content';
 import { Icon, Typography } from '@/shared/components/foundation';
 import { HStack } from '@/shared/components/layout';
 import { useSettingsRouter } from '@/widgets/settings/hash-router';
@@ -9,22 +10,30 @@ import { useSettingsRouter } from '@/widgets/settings/hash-router';
 export function SidebarFooter() {
   const { openModal } = useSettingsRouter();
   const { user } = useMe();
+  const { isOpen } = useSidebar();
 
   return (
-    <HStack fullWidth padding={[6, 10]} justify='between'>
+    <HStack fullWidth padding={isOpen ? [6, 10] : [4, 4]} justify='between'>
       <HStack spacing={12}>
         <HStack spacing={8}>
           <Avatar src={user?.profileImageUrl} size={32} />
-          <Typography.Label>{user?.name}</Typography.Label>
+
+          <AnimatedPresence isOpen={isOpen}>
+            <Typography.Label>{user?.name}</Typography.Label>
+          </AnimatedPresence>
         </HStack>
 
-        <UserCoin />
+        <AnimatedPresence isOpen={isOpen}>
+          <UserCoin />
+        </AnimatedPresence>
       </HStack>
 
-      <IconButton
-        icon='settings'
-        onClick={() => openModal('account')}
-      />
+      <AnimatedPresence isOpen={isOpen}>
+        <IconButton
+          icon='settings'
+          onClick={() => openModal('account')}
+        />
+      </AnimatedPresence>
     </HStack>
   );
 }
