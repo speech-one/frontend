@@ -33,9 +33,102 @@ const chatData: ChatData[] = [
     content: '다양한 측면으로 까줘',
   },
   {
-    id:            '2',
-    role:          'AGENT',
-    content:       '네 알겠습니다. **교육, 운영, 진로 등 다양한 측면에서 비판적인 관점**을 담아 프레젠테이션을 구성하겠습니다.\n현재 1단계인 **선린인터넷고등학교에 대한 정보 수집 및 분석**을 진행 중입니다. 다양한 비판적 관점을 도출하기 위해 학교의 현황, 교육 과정, 학생들의 평가 등 광범위한 정보를 수집하겠습니다.\n정보 수집 후, 2단계인 **비판적 관점의 슬라이드 콘텐츠 작성** 단계로 넘어가겠습니다. 잠시만 기다려주십시오.',
+    id:      '2',
+    role:    'AGENT',
+    content: `# 마크다운 테스트 가이드
+
+이 문서는 다양한 마크다운 기능을 테스트하기 위한 예시입니다.
+
+## 헤딩 레벨
+
+### 3단계 헤딩
+#### 4단계 헤딩
+##### 5단계 헤딩
+###### 6단계 헤딩
+
+## 텍스트 스타일링
+
+**굵은 글씨**와 *이탤릭* 그리고 ***굵은 이탤릭***을 사용할 수 있습니다.
+또한 ~~취소선~~과 \`인라인 코드\`도 지원합니다.
+
+> 이것은 인용구입니다. 중요한 내용을 강조할 때 사용할 수 있습니다.
+> 여러 줄로 작성할 수도 있습니다.
+
+## 리스트
+
+### 순서 없는 리스트
+
+- 첫 번째 항목
+- 두 번째 항목
+  - 중첩된 항목 1
+  - 중첩된 항목 2
+- 세 번째 항목
+
+### 순서 있는 리스트
+
+1. 첫 번째 작업
+2. 두 번째 작업
+3. 세 번째 작업
+   1. 세부 작업 1
+   2. 세부 작업 2
+
+## 코드 블록
+
+인라인 코드: \`const example = "test"\`
+
+\`\`\`javascript
+function greet(name) {
+  return \`Hello, \${name}!\`;
+}
+
+console.log(greet("마크다운"));
+\`\`\`
+
+\`\`\`python
+def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+
+print(fibonacci(10))
+\`\`\`
+
+## 링크와 이미지
+
+[구글](https://www.google.com)로 이동하거나 [GitHub](https://github.com)를 방문할 수 있습니다.
+
+![예시 이미지](https://via.placeholder.com/400x200)
+
+## 수평선
+
+---
+
+## 실제 사용 예시
+
+네 알겠습니다. **교육, 운영, 진로 등 다양한 측면에서 비판적인 관점**을 담아 프레젠테이션을 구성하겠습니다.
+
+현재 1단계인 **선린인터넷고등학교에 대한 정보 수집 및 분석**을 진행 중입니다. 다양한 비판적 관점을 도출하기 위해 학교의 현황, 교육 과정, 학생들의 평가 등 광범위한 정보를 수집하겠습니다.
+
+### 주요 작업 항목
+
+1. **정보 수집**
+   - 웹 검색 및 크롤링
+   - 문서 분석
+   - 데이터 정제
+
+2. **분석 및 검증**
+   - 데이터 크로스 체크
+   - 신뢰성 평가
+   - 결론 도출
+
+3. **콘텐츠 작성**
+   - 슬라이드 구성
+   - 시각화 자료 제작
+   - 최종 검토
+
+정보 수집 후, 2단계인 **비판적 관점의 슬라이드 콘텐츠 작성** 단계로 넘어가겠습니다. 잠시만 기다려주십시오.
+
+> 참고: 모든 작업은 자동화된 프로세스를 통해 진행되며, 각 단계마다 검증 절차를 거칩니다.`,
     agentResponse: { subTasks: [
       {
         title:   '선린인터넷고등학교에 대한 정보 수집 및 분석',
@@ -148,7 +241,7 @@ export default function ChatPage() {
         <Typography.Title>채팅방 이름</Typography.Title>
       </VStack>
 
-      <VStack fullWidth justify='start' className='flex-1 min-h-0' spacing={20}>
+      <VStack fullWidth justify='start' className='flex-1 min-h-0 overflow-y-auto' spacing={20}>
         {
           chatData.map(chat => {
             if (chat.role === 'USER') {
@@ -163,25 +256,29 @@ export default function ChatPage() {
               return (
                 <HStack fullWidth key={chat.id}
                   justify='start' className='min-w-0'>
-                  <VStack fullWidth spacing={8} className='min-w-0'>
-                    <Typography.Label className='text-grayscale-300'>SpeechOne</Typography.Label>
-                    <Typography.Body className='whitespace-pre-line wrap-break-word'>{chat.content}</Typography.Body>
+                  <VStack fullWidth spacing={16} className='min-w-0'>
+                    <VStack spacing={8}>
+                      <Typography.Label className='text-grayscale-300'>SpeechOne</Typography.Label>
+                      <Typography.Body className='whitespace-pre-line wrap-break-word' markdown>{chat.content}</Typography.Body>
+                    </VStack>
 
-                    {
-                      chat.agentResponse?.subTasks.map(subTask => {
-                        return (
-                          <AgentSubTask key={subTask.title} title={subTask.title}>
-                            {
-                              subTask.sources.map(source => {
-                                return (
-                                  <AgentSubTaskSource key={source.sourceType} sourceType={source.sourceType} icon={source.icon} action={source.action} content={source.content} parameters={source.parameters} />
-                                );
-                              })
-                            }
-                          </AgentSubTask>
-                        );
-                      })
-                    }
+                    <VStack spacing={8}>
+                      {
+                        chat.agentResponse?.subTasks.map(subTask => {
+                          return (
+                            <AgentSubTask key={subTask.title} title={subTask.title}>
+                              {
+                                subTask.sources.map(source => {
+                                  return (
+                                    <AgentSubTaskSource key={source.sourceType} sourceType={source.sourceType} icon={source.icon} action={source.action} content={source.content} parameters={source.parameters} />
+                                  );
+                                })
+                              }
+                            </AgentSubTask>
+                          );
+                        })
+                      }
+                    </VStack>
                   </VStack>
                 </HStack>
               );
@@ -190,7 +287,9 @@ export default function ChatPage() {
         }
       </VStack>
 
-      <ChatInput />
+      <div className='shrink-0 w-full'>
+        <ChatInput />
+      </div>
     </VStack>
   );
 }
@@ -214,7 +313,7 @@ function AgentSubTask(props: AgentSubTaskProps) {
     }
   }, [children]);
 
-  const totalHeight = isOpen ? contentHeight + 32 : 20; // 20 is icon height only
+  const totalHeight = isOpen ? contentHeight + 32 : 24;
 
   return (
     <HStack fullWidth align='start' spacing={8} className='min-w-0'>
@@ -232,14 +331,14 @@ function AgentSubTask(props: AgentSubTaskProps) {
         className='shrink-0'
         align='center'
       >
-        <Icon name='check-circle-2' size={20} className='shrink-0' />
+        <Icon name='check-circle-2' size={20} className='shrink-0 text-grayscale-200 mt-[4px]' />
         <div className='w-[2px] flex-1 border-0' style={{ backgroundImage: 'repeating-linear-gradient(to bottom, transparent, transparent 4px, rgb(107 114 128) 4px, rgb(107 114 128) 6px)' }}/>
       </AnimatedVStack>
 
       <VStack fullWidth className='min-w-0'>
-        <HStack spacing={8} onClick={() => setIsOpen(!isOpen)} className='min-w-0 cursor-pointer select-none'>
-          <Typography.Label className='min-w-0 truncate'>{title}</Typography.Label>
-          <Icon name='chevron-down' size={24} className={`shrink-0 ${isOpen ? '' : '-rotate-180'} transition-all duration-300`}/>
+        <HStack spacing={8} onClick={() => setIsOpen(!isOpen)} className='min-w-0 cursor-pointer select-none transition-all duration-300 hover:bg-grayscale-700 active:bg-grayscale-600 rounded-[8px]' padding={[4, 6]}>
+          <Typography.Label className='min-w-0 truncate text-grayscale-200'>{title}</Typography.Label>
+          <Icon name='chevron-down' size={24} className={`shrink-0 text-grayscale-200 ${isOpen ? '' : '-rotate-180'} transition-all duration-300`}/>
         </HStack>
 
         <motion.div
