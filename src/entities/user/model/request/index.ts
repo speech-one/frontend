@@ -1,2 +1,2 @@
-export * from './user-update';
+export * from './update-user';
 

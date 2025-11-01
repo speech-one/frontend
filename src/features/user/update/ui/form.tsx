@@ -4,9 +4,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import {
+  UpdateUserRequest,
+  updateUserSchema,
   useMe,
-  UserUpdateRequest,
-  userUpdateSchema,
   useUpdateUser,
 } from '@/entities/user';
 import { Button, FormTemplate } from '@/shared/components/content';
@@ -17,15 +17,15 @@ export function UserUpdateForm() {
   const updateUser = useUpdateUser();
   const { user } = useMe();
 
-  const form = useForm<UserUpdateRequest>({
+  const form = useForm<UpdateUserRequest>({
     defaultValues: {
       name:         '',
       profileImage: undefined,
     },
-    resolver: zodResolver(userUpdateSchema),
+    resolver: zodResolver(updateUserSchema),
   });
 
-  async function onSubmit(data: UserUpdateRequest) {
+  async function onSubmit(data: UpdateUserRequest) {
     await updateUser.mutateAsync(data);
   }
 

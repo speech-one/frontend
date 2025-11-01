@@ -17,6 +17,7 @@ interface FormTextareaFieldProps<TFieldValues extends FieldValues> extends Omit<
   placeholder?: string;
   required?:    boolean;
   control:      Control<TFieldValues>;
+  height?:      number | string;
 }
 
 export function FormTextareaField<TFieldValues extends FieldValues>(props: FormTextareaFieldProps<TFieldValues>) {
@@ -26,6 +27,7 @@ export function FormTextareaField<TFieldValues extends FieldValues>(props: FormT
     placeholder,
     required = false,
     control,
+    height,
     ...rest
   } = props;
 
@@ -48,6 +50,7 @@ export function FormTextareaField<TFieldValues extends FieldValues>(props: FormT
               <Textarea
                 fullWidth
                 placeholder={placeholder}
+                height={height}
                 {...rest}
                 {...field}
               />

@@ -46,9 +46,9 @@ export function SettingsTemplate(props: SettingsTemplateProps) {
           duration: 0.1,
           ease:     'easeInOut',
         }}
-        className='flex-1 w-full overflow-hidden'
+        className='w-full overflow-hidden'
       >
-        <VStack fullWidth fullHeight spacing={32} justify='start'>
+        <VStack fullWidth spacing={32} justify='start'>
           {pageConfig && (
             <HStack
               fullWidth
@@ -89,7 +89,7 @@ export function SettingsTemplate(props: SettingsTemplateProps) {
             </HStack>
           )}
 
-          <div className='flex-1 w-full overflow-hidden'>
+          <div className='flex-1 w-full overflow-y-auto min-h-0'>
             {children}
           </div>
         </VStack>

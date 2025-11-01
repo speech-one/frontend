@@ -1,16 +1,11 @@
 'use client';
 
-import { useMe } from '@/entities/user';
+import { BasePromptItem } from '@/features/base-prompt';
 
 export default function Home() {
-  const { user } = useMe();
-
   return (
     <div className='bg-grayscale-900'>
-      {
-        JSON.stringify(user)
-      }
-
+      <BasePromptItem id='1' prompt='testasdfasdfsafdasfadskfjs;ladkfja;dlskfj;lksdafj;kladsjf;lasdjf;asldkfj;klasdjflk;asdjf;ladsjf;sdakjflksdajflk;dsafjlkdsafjkdlsafjlksdafjlksdafjlksdafjdksafjlsdafjdsalkfjldsakfjdksfjtestasdfasdfsafdasfadskfjs;ladkfja;dlskfj;lksdafj;kladsjf;lasdjf;asldkfj;klasdjflk;asdjf;ladsjf;sdakjflksdajflk;dsafjlkdsafjkdlsafjlksdafjlksdafjlksdafjdksafjlsdafjdsalkfjldsakfjdksfjtestasdfasdfsafdasfadskfjs;ladkfja;dlskfj;lksdafj;kladsjf;lasdjf;asldkfj;klasdjflk;asdjf;ladsjf;sdakjflksdajflk;dsafjlkdsafjkdlsafjlksdafjlksdafjlksdafjdksafjlsdafjdsalkfjldsakfjdksfjtestasdfasdfsafdasfadskfjs;ladkfja;dlskfj;lksdafj;kladsjf;lasdjf;asldkfj;klasdjflk;asdjf;ladsjf;sdakjflksdajflk;dsafjlkdsafjkdlsafjlksdafjlksdafjlksdafjdksafjlsdafjdsalkfjldsakfjdksfjtestasdfasdfsafdasfadskfjs;ladkfja;dlskfj;lksdafj;kladsjf;lasdjf;asldkfj;klasdjflk;asdjf;ladsjf;sdakjflksdajflk;dsafjlkdsafjkdlsafjlksdafjlksdafjlksdafjdksafjlsdafjdsalkfjldsakfjdksfj' />
     </div>
   );
 }

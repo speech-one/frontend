@@ -30,7 +30,7 @@ export function SettingsContent() {
   }
 
   return (
-    <VStack fullWidth fullHeight padding={[16, 20]}>
+    <VStack fullWidth padding={[16, 20]} className='w-full'>
       <SettingsTemplate pageKey={pageKey}>
         <PageComponent />
       </SettingsTemplate>

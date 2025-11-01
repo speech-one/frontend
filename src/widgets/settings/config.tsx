@@ -2,8 +2,8 @@ import { IconName } from 'lucide-react/dynamic';
 import { ComponentType } from 'react';
 import AccountPage from './pages/account';
 import AccountEditPage from './pages/account-edit';
+import BasePromptPage from './pages/base-prompt';
 import MCPPage from './pages/mcp';
-import SystemPromptPage from './pages/system-prompt';
 import UsagePage from './pages/usage';
 
 export interface SettingsSubPageConfig {
@@ -39,11 +39,11 @@ export const SETTINGS_PAGES: SettingsPageConfig[] = [
     ],
   },
   {
-    id:          'system-prompt',
-    title:       '시스템 프롬프트',
+    id:          'base-prompt',
+    title:       '기본 프롬프트',
     icon:        'git-compare',
     description: '사용자의 커스텀 시스템 프롬프트를 설정할 수 있습니다.',
-    component:   SystemPromptPage,
+    component:   BasePromptPage,
   },
   {
     id:          'usage',

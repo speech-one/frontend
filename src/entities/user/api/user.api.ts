@@ -1,9 +1,9 @@
 import { apiClient } from '@/shared/api/client';
-import { UserDetailResponse, UserUpdateRequest } from '../model';
+import { UpdateUserRequest, UserDetailResponse } from '../model';
 
 export const userApi = {
   getMe:  () => apiClient<UserDetailResponse>('/api/users/me'),
-  update: (data: UserUpdateRequest) => {
+  update: (data: UpdateUserRequest) => {
     const formData = new FormData;
 
     if (data.name) {
