@@ -1,11 +1,10 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { IconName } from 'lucide-react/dynamic';
-import React, { useState } from 'react';
-import { AnimatedPresence } from '@/shared/components/animate';
+import React, { useEffect, useRef, useState } from 'react';
 import { Icon, Typography } from '@/shared/components/foundation';
-import { HStack, VStack } from '@/shared/components/layout';
+import { AnimatedVStack, HStack, VStack } from '@/shared/components/layout';
 import { ChatInput } from '@/widgets/chat';
 
 interface ChatData {
@@ -115,7 +114,7 @@ export default function ChatPage() {
                 <HStack fullWidth key={chat.id}
                   justify='start' className='min-w-0'>
                   <VStack fullWidth spacing={8} className='min-w-0'>
-                    <Typography.Label className='text-grayscale-300'>{chat.content}</Typography.Label>
+                    <Typography.Label className='text-grayscale-300'>SpeechOne</Typography.Label>
                     <Typography.Body className='whitespace-pre-line wrap-break-word'>{chat.content}</Typography.Body>
 
                     {
@@ -154,23 +153,47 @@ interface AgentSubTaskProps {
 function AgentSubTask(props: AgentSubTaskProps) {
   const { title, children } = props;
   const [isOpen, setIsOpen] = useState(true);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [contentHeight, setContentHeight] = useState<number>(0);
+
+  useEffect(() => {
+    if (contentRef.current) {
+      const height = contentRef.current.scrollHeight;
+
+      setContentHeight(height);
+    }
+  }, [isOpen, children]);
+
+  const totalHeight = isOpen ? contentHeight + 32 : 20; // 20 is icon height only
 
   return (
-    <HStack fullWidth align='stretch' spacing={8} className='min-w-0'>
-      <VStack className='shrink-0 self-stretch h-auto!' align='center'>
+    <HStack fullWidth align='start' spacing={8} className='min-w-0'>
+      <AnimatedVStack
+        animate={{ height: totalHeight }}
+        transition={{
+          duration: 0.4,
+          ease:     [
+            0.4, 0, 0.2, 1,
+          ],
+          delay: isOpen ? 0 : 0.1,
+        }}
+        className='shrink-0'
+        align='center'
+      >
         <Icon name='check-circle-2' size={20} className='shrink-0' />
         <div className='w-[2px] flex-1 border-0' style={{ backgroundImage: 'repeating-linear-gradient(to bottom, transparent, transparent 4px, rgb(107 114 128) 4px, rgb(107 114 128) 6px)' }}/>
-      </VStack>
+      </AnimatedVStack>
 
       <VStack fullWidth className='min-w-0'>
-        <HStack spacing={8} onClick={() => setIsOpen(!isOpen)} className='min-w-0'>
+        <HStack spacing={8} onClick={() => setIsOpen(!isOpen)} className='min-w-0 cursor-pointer select-none'>
           <Typography.Label className='min-w-0 truncate'>{title}</Typography.Label>
-          <Icon name='chevron-down' size={24} className={`shrink-0 ${isOpen ? '' : 'rotate-180'}`}/>
+          <Icon name='chevron-down' size={24} className={`shrink-0 ${isOpen ? '' : '-rotate-180'} transition-all duration-300`}/>
         </HStack>
 
-        <AnimatedPresence isOpen={isOpen} fullWidth className='min-w-0'>
+        <AnimatePresence>
           {isOpen && (
             <motion.div
+              ref={contentRef}
               initial="hidden"
               animate="visible"
               exit="hidden"
@@ -234,7 +257,7 @@ function AgentSubTask(props: AgentSubTaskProps) {
               </VStack>
             </motion.div>
           )}
-        </AnimatedPresence>
+        </AnimatePresence>
       </VStack>
     </HStack>
   );
