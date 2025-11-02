@@ -6,7 +6,13 @@ import { useSettingsRouter } from './hash-router';
 import { SettingsTemplate } from './template';
 
 export function SettingsContent() {
-  const { currentTab, currentSubPage } = useSettingsRouter();  const pageConfig = getSettingsPageById(currentTab) || DEFAULT_SETTINGS_PAGE;
+  const {
+    currentTab,
+    currentSubPage,
+    params,
+  } = useSettingsRouter();
+
+  const pageConfig = getSettingsPageById(currentTab) || DEFAULT_SETTINGS_PAGE;
 
   let PageComponent;
   let pageKey;
@@ -17,7 +23,11 @@ export function SettingsContent() {
     if (subPageConfig) {
       PageComponent = subPageConfig.component;
 
-      pageKey = `${pageConfig.id}-${subPageConfig.id}`;
+      if (subPageConfig.dynamic && params.id) {
+        pageKey = `${pageConfig.id}-${subPageConfig.id}-${params.id}`;
+      } else {
+        pageKey = `${pageConfig.id}-${subPageConfig.id}`;
+      }
     } else {
       PageComponent = pageConfig.component;
 
@@ -30,7 +40,7 @@ export function SettingsContent() {
   }
 
   return (
-    <VStack fullWidth padding={[16, 20]} className='w-full'>
+    <VStack fullWidth fullHeight padding={[16, 20]}>
       <SettingsTemplate pageKey={pageKey}>
         <PageComponent />
       </SettingsTemplate>

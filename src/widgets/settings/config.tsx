@@ -3,7 +3,9 @@ import { ComponentType } from 'react';
 import AccountPage from './pages/account';
 import AccountEditPage from './pages/account-edit';
 import BasePromptPage from './pages/base-prompt';
-import MCPPage from './pages/mcp';
+import McpPage from './pages/mcp';
+import AddMcpPage from './pages/mcp-add';
+import EditMcpPage from './pages/mcp-edit';
 import UsagePage from './pages/usage';
 
 export interface SettingsSubPageConfig {
@@ -11,6 +13,8 @@ export interface SettingsSubPageConfig {
   title:       string;
   description: string;
   component:   ComponentType;
+  dynamic?:    boolean; // 동적 라우트 여부 (예: edit/:id)
+  pattern?:    string; // 동적 라우트 패턴 (예: 'edit/:id')
 }
 
 export interface SettingsPageConfig {
@@ -57,7 +61,23 @@ export const SETTINGS_PAGES: SettingsPageConfig[] = [
     title:       'MCP',
     icon:        'monitor-down',
     description: '커스텀 MCP를 연결할 수 있습니다.',
-    component:   MCPPage,
+    component:   McpPage,
+    subPages:    [
+      {
+        id:          'add',
+        title:       'MCP 등록',
+        description: '커스텀 MCP를 JSON 형태로 등록하세요.',
+        component:   AddMcpPage,
+      },
+      {
+        id:          'edit',
+        title:       'MCP 수정',
+        description: '커스텀 MCP를 JSON 형태로 수정하세요.',
+        component:   EditMcpPage,
+        dynamic:     true,
+        pattern:     'edit/:id',
+      },
+    ],
   },
 ];
 
@@ -65,10 +85,32 @@ export const getSettingsPageById = (id: string): SettingsPageConfig | undefined 
   return SETTINGS_PAGES.find(page => page.id === id);
 };
 
-export const getSettingsSubPageById = (pageId: string, subPageId: string): SettingsSubPageConfig | undefined => {
+export const getSettingsSubPageById = (pageId: string, subPagePath: string): SettingsSubPageConfig | undefined => {
   const page = getSettingsPageById(pageId);
 
-  return page?.subPages?.find(subPage => subPage.id === subPageId);
+  if (!page?.subPages) {
+    return undefined;
+  }
+
+  // 먼저 정확한 매칭 시도
+  const exactMatch = page.subPages.find(subPage => subPage.id === subPagePath);
+
+  if (exactMatch) {
+    return exactMatch;
+  }
+
+  // 동적 라우트 패턴 매칭 시도
+  return page.subPages.find(subPage => {
+    if (subPage.dynamic && subPage.pattern) {
+      // 패턴을 정규식으로 변환 (예: 'edit/:id' -> '^edit/(.+)$')
+      const regexPattern = subPage.pattern.replace(/:[^/]+/g, '([^/]+)');
+      const regex = new RegExp(`^${regexPattern}$`);
+
+      return regex.test(subPagePath);
+    }
+
+    return false;
+  });
 };
 
 export const DEFAULT_SETTINGS_PAGE = SETTINGS_PAGES[0];

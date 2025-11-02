@@ -8,7 +8,7 @@ export function SettingsWidget() {
   return (
     <HStack fullWidth height={600} className='bg-grayscale-800 rounded-[24px] overflow-hidden'>
       <SettingsSidebar />
-      <div className='flex-1 overflow-y-auto min-h-0 h-full w-full max-w-full max-h-full flex flex-col justify-start items-start'>
+      <div className='flex-1 h-full overflow-y-auto min-h-0'>
         <SettingsContent />
       </div>
     </HStack>

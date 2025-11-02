@@ -1,10 +1,11 @@
 import { useBasePromptList } from '@/entities/base-prompt';
 import { AddBasePromptForm, BasePromptItem } from '@/features/base-prompt';
+import { Skeleton } from '@/shared/components/content';
 import { Typography } from '@/shared/components/foundation';
 import { HStack, VStack } from '@/shared/components/layout';
 
 export default function BasePromptPage() {
-  const { basePromptList } = useBasePromptList();
+  const { basePromptList, isPending } = useBasePromptList();
   const isBasePromptListEmpty = basePromptList?.length === 0;
 
   return (
@@ -21,10 +22,16 @@ export default function BasePromptPage() {
 
         <VStack fullWidth spacing={8}>
           {
+            isPending
+              ? Array.from({ length: 3 })
+                .map((_, index) => <Skeleton key={index} variant='rounded' className='w-full' height={52} />)
+              : basePromptList?.map(basePrompt => <BasePromptItem key={basePrompt.id} id={basePrompt.id} prompt={basePrompt.prompt} />)
+          }
+
+          {
             isBasePromptListEmpty
               ?               <Typography.Label className='text-grayscale-400'>등록한 프롬프트가 없습니다.</Typography.Label>
-              :               basePromptList?.map(basePrompt => <BasePromptItem key={basePrompt.id} id={basePrompt.id} prompt={basePrompt.prompt} />)
-
+              : null
           }
         </VStack>
       </VStack>

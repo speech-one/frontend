@@ -2,8 +2,8 @@ import { TypographyBuilder } from './builder';
 import { TypographyType } from './shared';
 
 interface TypographyProps extends React.HTMLAttributes<HTMLDivElement> {
-  children: React.ReactNode;
-  width?:   number;
+  children:  React.ReactNode;
+  width?:    number;
   markdown?: boolean;
 }
 

@@ -11,10 +11,11 @@ import {
 interface HashRouterContextValue {
   currentTab:     string;
   currentSubPage: string | null;
+  params:         Record<string, string>;
   isModalOpen:    boolean;
-  openModal:      (tab?: string, subPage?: string) => void;
+  openModal:      (tab?: string, subPage?: string, params?: Record<string, string>) => void;
   closeModal:     () => void;
-  changeTab:      (tab: string, subPage?: string) => void;
+  changeTab:      (tab: string, subPage?: string, params?: Record<string, string>) => void;
   goBack:         () => void;
 }
 
@@ -25,6 +26,7 @@ export function SettingsHashRouter({ children }: {
 }) {
   const [currentTab, setCurrentTab] = useState('account');
   const [currentSubPage, setCurrentSubPage] = useState<string | null>(null);
+  const [params, setParams] = useState<Record<string, string>>({});
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
@@ -37,13 +39,37 @@ export function SettingsHashRouter({ children }: {
 
         setCurrentTab(parts[0] || 'account');
 
-        setCurrentSubPage(parts[1] || null);
+        if (parts.length > 1) {
+          const subPagePath = parts.slice(1).join('/');
+
+          setCurrentSubPage(subPagePath);
+
+          const extractedParams: Record<string, string> = {};
+
+          if (parts.length > 2) {
+            extractedParams.id = parts[2];
+
+            for (let i = 3; i < parts.length; i += 2) {
+              if (parts[i + 1]) {
+                extractedParams[parts[i]] = parts[i + 1];
+              }
+            }
+          }
+
+          setParams(extractedParams);
+        } else {
+          setCurrentSubPage(null);
+
+          setParams({});
+        }
 
         setIsModalOpen(true);
       } else if (isModalOpen) {
         setIsModalOpen(false);
 
         setCurrentSubPage(null);
+
+        setParams({});
       }
     };
 
@@ -54,24 +80,30 @@ export function SettingsHashRouter({ children }: {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, [isModalOpen]);
 
-  const openModal = (tab: string = 'account', subPage?: string) => {
+  const buildHash = (tab: string, subPage?: string, routeParams?: Record<string, string>) => {
     if (subPage) {
-      window.location.hash = `settings/${tab}/${subPage}`;
-    } else {
-      window.location.hash = `settings/${tab}`;
+      if (routeParams && Object.keys(routeParams).length > 0) {
+        const paramValues = Object.values(routeParams);
+
+        return `settings/${tab}/${subPage}/${paramValues.join('/')}`;
+      }
+
+      return `settings/${tab}/${subPage}`;
     }
+
+    return `settings/${tab}`;
+  };
+
+  const openModal = (tab: string = 'account', subPage?: string, routeParams?: Record<string, string>) => {
+    window.location.hash = buildHash(tab, subPage, routeParams);
   };
 
   const closeModal = () => {
     window.location.hash = '';
   };
 
-  const changeTab = (tab: string, subPage?: string) => {
-    if (subPage) {
-      window.location.hash = `settings/${tab}/${subPage}`;
-    } else {
-      window.location.hash = `settings/${tab}`;
-    }
+  const changeTab = (tab: string, subPage?: string, routeParams?: Record<string, string>) => {
+    window.location.hash = buildHash(tab, subPage, routeParams);
   };
 
   const goBack = () => {
@@ -87,6 +119,7 @@ export function SettingsHashRouter({ children }: {
       value={{
         currentTab,
         currentSubPage,
+        params,
         isModalOpen,
         openModal,
         closeModal,
