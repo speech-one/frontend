@@ -479,7 +479,7 @@ function AgentSubTaskSource(props: AgentSubTaskSourceProps) {
 
   if (sourceType === 'ACTION') {
     return (
-      <HStack spacing={4} padding={[4, 10]} className='bg-grayscale-700 rounded-[24px] min-w-0 max-w-full'>
+      <HStack spacing={4} padding={[4, 10]} className='bg-grayscale-700 rounded-[24px] min-w-0 max-w-full cursor-pointer hover:brightness-90 active:brightness-80 transition-all duration-150'>
         <Icon name={icon ?? 'file'} size={20} className='shrink-0' />
         <Typography.Label className='shrink-0'>{description}</Typography.Label>
 
