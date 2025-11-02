@@ -6,10 +6,8 @@ import { mcpApi } from '../mcp.api';
 export function useAddMcp() {
   return useMutation({
     mutationFn: mcpApi.add,
-    onSuccess:  async () => {
-      await queryClient.invalidateQueries({ queryKey: mcpKeys.list() });
-
-      await queryClient.refetchQueries({ queryKey: mcpKeys.list() });
+    onSuccess:  () => {
+      queryClient.invalidateQueries({ queryKey: mcpKeys.list() });
     },
   });
 }
