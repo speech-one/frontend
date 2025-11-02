@@ -10,8 +10,10 @@ export * from './FormTemplate';
 export * from './IconButton';
 export * from './Input';
 export * from './Modal';
+export * from './Panel';
 export * from './Sidebar';
 export * from './Skeleton';
+export * from './Slider';
 export * from './Switch';
 export * from './Textarea';
 

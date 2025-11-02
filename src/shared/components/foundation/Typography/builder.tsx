@@ -7,6 +7,7 @@ interface TypographyBuilderProps extends React.HTMLAttributes<HTMLDivElement> {
   type:      TypographyType;
   width?:    number;
   markdown?: boolean;
+  nowrap?:   boolean;
 }
 
 const typographyVariants = {
@@ -363,6 +364,7 @@ export function TypographyBuilder(props: TypographyBuilderProps) {
     className,
     width,
     markdown = false,
+    nowrap = false,
     ...rest
   } = props;
 
@@ -382,7 +384,9 @@ export function TypographyBuilder(props: TypographyBuilderProps) {
 
   return (
     <div
-      className={clsx(typographyVariants[type], typographyWeights[type], 'tracking-[-0.04em] leading-[140%] font-pretendard text-grayscale-100', className)}
+      className={clsx(
+        typographyVariants[type], typographyWeights[type], 'tracking-[-0.04em] leading-[140%] font-pretendard text-grayscale-100', nowrap && 'whitespace-nowrap', className,
+      )}
       {...rest}
     >
       {content}

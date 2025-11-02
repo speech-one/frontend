@@ -21,6 +21,9 @@
   --color-blue-solid: #0082EE;
   --color-blue-translucent: rgba(0, 130, 238, 0.2);
 
+  --color-green-solid: #22c55e;
+  --color-green-translucent: rgba(34, 197, 94, 0.2);
+
   --font-pretendard: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
 
   --text-title: 24px;

@@ -3,9 +3,16 @@
 import { motion } from 'framer-motion';
 import { IconName } from 'lucide-react/dynamic';
 import React, { useLayoutEffect, useRef, useState } from 'react';
+import {
+  Divider,
+  IconButton,
+  openPanel,
+  Slider,
+} from '@/shared/components/content';
 import { Icon, Typography } from '@/shared/components/foundation';
 import { AnimatedVStack, HStack, VStack } from '@/shared/components/layout';
 import { ChatInput } from '@/widgets/chat';
+import { TimelineTemplate } from '@/widgets/timeline';
 
 interface ChatData {
   id:             string;
@@ -218,37 +225,18 @@ print(fibonacci(10))
         ],
       },
       {
-        title:   '선린인터넷고등학교에 대한 정보 수집 및 분석',
+        title:   '비판적 관점의 슬라이드 콘텐츠 작성',
         status:  'PENDING',
         sources: [
           {
             sourceType: 'ACTION',
             action:     'searchApi',
             parameters: [
-              '선린인터넷고등학교 문제점 비판', '선린인터넷고등학교 교육과정 이슈', '선린인터넷고등학교 학생 후기 불만',
+              '선린인터넷고등학교 문제점 비판', '선린인터넷고등학교 교육과정 이슈', '선린인터넷고등학교 학생 후기 불만', '선린인터넷고등학교 문제점 비판', '선린인터넷고등학교 교육과정 이슈', '선린인터넷고등학교 학생 후기 불만',
             ],
           },
           {
-            sourceType: 'TEXT', content: '선린인터넷고등학교는 IT 특성화로 평가받지만, 교육과 행정 문제, 경쟁 압박, 졸업 후 진로 등 일부 비판도 존재함을 발견했습니다. 다음 단계는 상세 분석입니다.',
-          },
-          {
-            sourceType: 'ACTION',
-            action:     'searchBrowser',
-            parameters: ['https://namu.wiki/w/%EC%84%A0%EB%A6%B0%EC%9D%B8%ED%84%B0%EB%84%B7%EA%B3%A0%EB%93%B1%ED%95%99%EA%B5%90'],
-          },
-          {
-            sourceType: 'ACTION',
-            action:     'searchBrowser',
-            parameters: ['https://blog.sechack.kr/91'],
-          },
-          {
-            sourceType: 'ACTION',
-            action:     'readFile',
-            parameters: ['page_texts/namu.wiki_w__EC_84_A0_EB_A6_B0_EC_9D_B8_ED_84_B0_EB_84_B7_EA_B3_A0_EB_93_B1_ED_95_99_EA_B5_90.txt'],
-          },
-          {
-            sourceType: 'TEXT',
-            content:    '학교는 자유롭고 IT 중심이지만, 교육 한계, 실용성 부족, 진로 불안, 학생 불만 등 문제점도 파악됨. 다음은 상세 분석입니다.',
+            sourceType: 'TEXT', content: '선린인터넷고등학교는 IT 특성화로 평가받지만, 교육과 행정 문제, 경쟁 압박, 졸업 후 진로 등 일부 비판도 존재함을 발견했습니다. 다음 단계는 상세 분석입니다. 선린인터넷고등학교는 IT 특성화로 평가받지만, 교육과 행정 문제, 경쟁 압박, 졸업 후 진로 등 일부 비판도 존재함을 발견했습니다. 다음 단계는 상세 분석입니다.',
           },
           {
             sourceType: 'ACTION',
@@ -468,6 +456,113 @@ interface AgentSubTaskSourceProps {
   parameters?:  string[];
 }
 
+function TimelinePanelContent() {
+  const [progress, setProgress] = useState(0);
+
+  return (
+    <VStack fullWidth fullHeight className='bg-grayscale-700 rounded-[12px] border border-grayscale-600 overflow-hidden'>
+      <HStack fullWidth padding={[12, 0]} justify={'center'}>
+        <Typography.Body>main</Typography.Body>
+      </HStack>
+      <Divider className='bg-grayscale-600'/>
+      <VStack fullWidth fullHeight>
+        <Typography.Body>text</Typography.Body>
+      </VStack>
+      <HStack fullWidth padding={[8, 16]} spacing={12} className='bg-grayscale-800'>
+        <HStack spacing={8}>
+          <IconButton icon='skip-back' size='small' />
+          <IconButton icon='skip-forward' size='small' />
+        </HStack>
+
+        <Slider value={progress} onChange={setProgress} min={0} max={100} />
+
+        <HStack spacing={8}>
+          <Icon name='circle-dot' size={8} className='text-grayscale-200' />
+          <Typography.Label className='text-grayscale-200' nowrap>라이브</Typography.Label>
+        </HStack>
+      </HStack>
+    </VStack>
+  );
+}
+
+function TimelineProgressPanel({ timelineConfig, getLastConfirmedIndex }: {
+  timelineConfig: {
+    title:   string;
+    confirm: boolean;
+  }[];
+  getLastConfirmedIndex: () => number;
+}) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  return (
+    <VStack fullWidth spacing={0} className='shrink-0'>
+      <VStack
+        fullWidth
+        spacing={isExpanded ? 12 : 0}
+        padding={[8, 12]}
+        className='bg-grayscale-800 border border-grayscale-600 rounded-[10px] cursor-pointer hover:brightness-90 transition-all duration-150'
+      >
+        <HStack
+          fullWidth
+          justify='between'
+          onClick={() => setIsExpanded(prev => !prev)}
+        >
+          <HStack spacing={4}>
+            <Icon name={'check'} size={20} className='text-green-solid' />
+            <Typography.Label>{timelineConfig[getLastConfirmedIndex()].title}</Typography.Label>
+          </HStack>
+
+          <HStack spacing={4}>
+            <Typography.Label>{timelineConfig.length} / {timelineConfig.length}</Typography.Label>
+            <Icon
+              name='chevron-up'
+              size={20}
+              className={`transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`}
+            />
+          </HStack>
+        </HStack>
+
+        <motion.div
+          initial={false}
+          animate={{
+            height:  isExpanded ? 'auto' : 0,
+            opacity: isExpanded ? 1 : 0,
+          }}
+          transition={{
+            duration: 0.3,
+            ease:     [
+              0.4,
+              0,
+              0.2,
+              1,
+            ],
+          }}
+          style={{ overflow: 'hidden' }}
+          className='w-full'
+        >
+          <VStack fullWidth spacing={12} padding={[
+            12,
+            0,
+            0,
+            0,
+          ]}>
+            {timelineConfig.map((config, index) => (
+              <HStack key={index} fullWidth spacing={8}>
+                <Icon
+                  name={config.confirm ? 'check' : 'circle'}
+                  size={20}
+                  className={config.confirm ? 'text-green-solid' : 'text-grayscale-400'}
+                />
+                <Typography.Label>{config.title}</Typography.Label>
+              </HStack>
+            ))}
+          </VStack>
+        </motion.div>
+      </VStack>
+    </VStack>
+  );
+}
+
 function AgentSubTaskSource(props: AgentSubTaskSourceProps) {
   const {
     sourceType,
@@ -477,9 +572,61 @@ function AgentSubTaskSource(props: AgentSubTaskSourceProps) {
     parameters,
   } = props;
 
+  const timelineConfig: {
+    title: string; confirm: boolean;
+  }[] = [
+    {
+      title:   '작업 진행 단계 1',
+      confirm: true,
+    },
+    {
+      title:   '작업 진행 단계 2',
+      confirm: false,
+    },
+    {
+      title:   '작업 진행 단계 3',
+      confirm: true,
+    },
+    {
+      title:   '작업 진행 단계 4',
+      confirm: false,
+    },
+  ];
+
+  const getLastConfirmedIndex = () => {
+    return timelineConfig.findLastIndex(config => config.confirm);
+  };
+
+  const onActionClick = () => {
+    openPanel(({ isOpen, close }) => {
+      return (
+        <TimelineTemplate
+          isOpen={isOpen}
+          onClose={close}
+          title={'OOO님의 컴퓨터'}
+          description={'컴퓨터'}
+        >
+          <VStack fullWidth fullHeight spacing={20} className='min-h-0'>
+            <div className='flex-1 min-h-0'>
+              <TimelinePanelContent />
+            </div>
+
+            <TimelineProgressPanel
+              timelineConfig={timelineConfig}
+              getLastConfirmedIndex={getLastConfirmedIndex}
+            />
+          </VStack>
+        </TimelineTemplate>
+      );
+    }, {
+      width: '40%',
+      side:  'right',
+    });
+  };
+
   if (sourceType === 'ACTION') {
     return (
-      <HStack spacing={4} padding={[4, 10]} className='bg-grayscale-700 rounded-[24px] min-w-0 max-w-full cursor-pointer hover:brightness-90 active:brightness-80 transition-all duration-150'>
+      <HStack spacing={4} padding={[4, 10]} className='bg-grayscale-700 rounded-[24px] min-w-0 max-w-full cursor-pointer hover:brightness-90 active:brightness-80 transition-all duration-150' onClick={onActionClick}>
         <Icon name={icon ?? 'file'} size={20} className='shrink-0' />
         <Typography.Label className='shrink-0'>{description}</Typography.Label>
 

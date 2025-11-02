@@ -5,12 +5,13 @@ interface TypographyProps extends React.HTMLAttributes<HTMLDivElement> {
   children:  React.ReactNode;
   width?:    number;
   markdown?: boolean;
+  nowrap?:   boolean;
 }
 
-const Title = (props: TypographyProps) => <TypographyBuilder type={TypographyType.TITLE} width={props.width} markdown={props.markdown} {...props} />;
-const Body = (props: TypographyProps) => <TypographyBuilder type={TypographyType.BODY} width={props.width} markdown={props.markdown} {...props} />;
-const Label = (props: TypographyProps) => <TypographyBuilder type={TypographyType.LABEL} width={props.width} markdown={props.markdown} {...props} />;
-const Footnote = (props: TypographyProps) => <TypographyBuilder type={TypographyType.FOOTNOTE} width={props.width} markdown={props.markdown} {...props} />;
+const Title = (props: TypographyProps) => <TypographyBuilder type={TypographyType.TITLE} width={props.width} markdown={props.markdown} nowrap={props.nowrap} {...props} />;
+const Body = (props: TypographyProps) => <TypographyBuilder type={TypographyType.BODY} width={props.width} markdown={props.markdown} nowrap={props.nowrap} {...props} />;
+const Label = (props: TypographyProps) => <TypographyBuilder type={TypographyType.LABEL} width={props.width} markdown={props.markdown} nowrap={props.nowrap} {...props} />;
+const Footnote = (props: TypographyProps) => <TypographyBuilder type={TypographyType.FOOTNOTE} width={props.width} markdown={props.markdown} nowrap={props.nowrap} {...props} />;
 
 export const Typography = {
   Title,
