@@ -17,14 +17,57 @@ interface ChatData {
       status:  'PENDING' | 'COMPLETED';
       sources: {
         sourceType:  'ACTION' | 'TEXT';
-        icon?:       IconName;
-        action?:     string;
+        action?:     ToolType;
         content?:    string;
         parameters?: string[];
       }[];
     }[];
   };
 }
+
+type ToolType = 'searchApi' | 'searchBrowser' | 'scrollUp' | 'scrollDown' | 'clickElement' | 'createFile' | 'writeFile' | 'readFile' | 'deleteFile';
+
+const toolConfig: Record<ToolType, {
+  icon:        IconName;
+  description: string;
+}> = {
+  searchApi: {
+    icon:        'search',
+    description: '검색 중',
+  },
+  searchBrowser: {
+    icon:        'compass',
+    description: '검색 중',
+  },
+  scrollUp: {
+    icon:        'arrow-up',
+    description: '위로 스크롤 중',
+  },
+  scrollDown: {
+    icon:        'arrow-down',
+    description: '아래로 스크롤 중',
+  },
+  clickElement: {
+    icon:        'mouse-pointer-2',
+    description: '요소를 클릭하는 중',
+  },
+  createFile: {
+    icon:        'file-plus',
+    description: '파일을 생성하는 중',
+  },
+  writeFile: {
+    icon:        'file-text',
+    description: '파일을 작성하는 중',
+  },
+  readFile: {
+    icon:        'file-text',
+    description: '파일을 읽는 중',
+  },
+  deleteFile: {
+    icon:        'file-minus',
+    description: '파일을 삭제하는 중',
+  },
+};
 
 const chatData: ChatData[] = [
   {
@@ -136,8 +179,7 @@ print(fibonacci(10))
         sources: [
           {
             sourceType: 'ACTION',
-            action:     '검색',
-            icon:       'search',
+            action:     'searchApi',
             parameters: [
               '선린인터넷고등학교 문제점 비판', '선린인터넷고등학교 교육과정 이슈', '선린인터넷고등학교 학생 후기 불만',
             ],
@@ -147,20 +189,17 @@ print(fibonacci(10))
           },
           {
             sourceType: 'ACTION',
-            icon:       'compass',
-            action:     '검색 중',
+            action:     'searchBrowser',
             parameters: ['https://namu.wiki/w/%EC%84%A0%EB%A6%B0%EC%9D%B8%ED%84%B0%EB%84%B7%EA%B3%A0%EB%93%B1%ED%95%99%EA%B5%90'],
           },
           {
             sourceType: 'ACTION',
-            icon:       'compass',
-            action:     '검색 중',
+            action:     'searchBrowser',
             parameters: ['https://blog.sechack.kr/91'],
           },
           {
             sourceType: 'ACTION',
-            icon:       'file-text',
-            action:     '파일을 읽는 중',
+            action:     'readFile',
             parameters: ['page_texts/namu.wiki_w__EC_84_A0_EB_A6_B0_EC_9D_B8_ED_84_B0_EB_84_B7_EA_B3_A0_EB_93_B1_ED_95_99_EA_B5_90.txt'],
           },
           {
@@ -169,14 +208,12 @@ print(fibonacci(10))
           },
           {
             sourceType: 'ACTION',
-            icon:       'search',
-            action:     '검색 중',
+            action:     'searchBrowser',
             parameters: ['https://blog.naver.com/mimitak/223116341333?viewType=pc'],
           },
           {
             sourceType: 'ACTION',
-            icon:       'arrow-down',
-            action:     '아래로 스크롤 중',
+            action:     'scrollDown',
           },
         ],
       },
@@ -186,8 +223,7 @@ print(fibonacci(10))
         sources: [
           {
             sourceType: 'ACTION',
-            action:     '검색',
-            icon:       'search',
+            action:     'searchApi',
             parameters: [
               '선린인터넷고등학교 문제점 비판', '선린인터넷고등학교 교육과정 이슈', '선린인터넷고등학교 학생 후기 불만',
             ],
@@ -197,20 +233,17 @@ print(fibonacci(10))
           },
           {
             sourceType: 'ACTION',
-            icon:       'compass',
-            action:     '검색 중',
+            action:     'searchBrowser',
             parameters: ['https://namu.wiki/w/%EC%84%A0%EB%A6%B0%EC%9D%B8%ED%84%B0%EB%84%B7%EA%B3%A0%EB%93%B1%ED%95%99%EA%B5%90'],
           },
           {
             sourceType: 'ACTION',
-            icon:       'compass',
-            action:     '검색 중',
+            action:     'searchBrowser',
             parameters: ['https://blog.sechack.kr/91'],
           },
           {
             sourceType: 'ACTION',
-            icon:       'file-text',
-            action:     '파일을 읽는 중',
+            action:     'readFile',
             parameters: ['page_texts/namu.wiki_w__EC_84_A0_EB_A6_B0_EC_9D_B8_ED_84_B0_EB_84_B7_EA_B3_A0_EB_93_B1_ED_95_99_EA_B5_90.txt'],
           },
           {
@@ -219,14 +252,12 @@ print(fibonacci(10))
           },
           {
             sourceType: 'ACTION',
-            icon:       'search',
-            action:     '검색 중',
+            action:     'searchBrowser',
             parameters: ['https://blog.naver.com/mimitak/223116341333?viewType=pc'],
           },
           {
             sourceType: 'ACTION',
-            icon:       'arrow-down',
-            action:     '아래로 스크롤 중',
+            action:     'scrollDown',
           },
         ],
       },
@@ -270,7 +301,7 @@ export default function ChatPage() {
                               {
                                 subTask.sources.map(source => {
                                   return (
-                                    <AgentSubTaskSource key={source.sourceType} sourceType={source.sourceType} icon={source.icon} action={source.action} content={source.content} parameters={source.parameters} />
+                                    <AgentSubTaskSource key={source.sourceType} sourceType={source.sourceType} icon={toolConfig[source.action ?? 'searchApi'].icon} description={toolConfig[source.action ?? 'searchApi'].description} content={source.content} parameters={source.parameters} />
                                   );
                                 })
                               }
@@ -430,27 +461,27 @@ function AgentSubTask(props: AgentSubTaskProps) {
 }
 
 interface AgentSubTaskSourceProps {
-  sourceType:  'ACTION' | 'TEXT';
-  icon?:       IconName;
-  action?:     string;
-  content?:    string;
-  parameters?: string[];
+  sourceType:   'ACTION' | 'TEXT';
+  icon?:        IconName;
+  description?: string;
+  content?:     string;
+  parameters?:  string[];
 }
 
 function AgentSubTaskSource(props: AgentSubTaskSourceProps) {
   const {
     sourceType,
     icon,
-    action,
+    description,
     content,
     parameters,
   } = props;
 
   if (sourceType === 'ACTION') {
     return (
-      <HStack spacing={4} padding={[4, 10]} className='bg-grayscale-600 rounded-[24px] min-w-0 max-w-full'>
+      <HStack spacing={4} padding={[4, 10]} className='bg-grayscale-700 rounded-[24px] min-w-0 max-w-full'>
         <Icon name={icon ?? 'file'} size={20} className='shrink-0' />
-        <Typography.Label className='shrink-0'>{action}</Typography.Label>
+        <Typography.Label className='shrink-0'>{description}</Typography.Label>
 
         {parameters && parameters.length > 0 && <Typography.Label className='min-w-0 flex-1 truncate text-grayscale-300'>{parameters.join(', ')}</Typography.Label>}
       </HStack>
